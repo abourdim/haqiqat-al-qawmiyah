@@ -1,0 +1,12 @@
+{
+  "name": "Arab Nationalism: Truth & Myth — حقيقة القومية العربية",
+  "short_name": "حقيقة القومية",
+  "description": "Interactive trilingual app based on Sheikh Mohammed al-Ghazali's book on Arab nationalism",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#37474F",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": []
+}
