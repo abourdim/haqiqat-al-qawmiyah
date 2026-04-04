@@ -1,591 +1,1013 @@
-/* حقيقة القومية العربية — ARAB NATIONALISM: TRUTH & MYTH — app.js */
-/* Based on "Haqiqat al-Qawmiyah al-Arabiyah" by Sheikh Mohammed al-Ghazali (1917-1996) */
+/* حقيقة القومية العربية — ARAB NATIONALISM: REALITY & MYTH — app.js v1.0 */
+/* Based on "Haqiqat al-Qawmiyah al-Arabiyah wa Usturah al-Ba'th al-Arabi" by Sheikh Mohammed al-Ghazali (1917-1996) */
 
 // ═══════════════ TRILINGUAL DATA ═══════════════
 const T = {
   ar: {
     appTitle: 'حقيقة القومية العربية',
-    splashSub: 'وأسطورة البعث العربي',
+    splashSub: 'الهوية والوحدة في ميزان الإسلام',
     splashHint: 'اضغط للتخطي',
     sacredRef: 'سورة الحجرات ٤٩: ١٣',
-    tabHome: 'الرئيسية', tabCards: 'البطاقات', tabCritique: 'النقد',
-    tabHabits: 'العادات', tabQuiz: 'اختبار', tabAbout: 'الكتاب',
-    cardsTitle: 'بطاقات المعرفة',
-    cardsDesc: '٢٠ بطاقة حول الهوية العربية والإسلام والقومية',
-    critiqueTitle: 'نقد فكر البعث',
-    critiqueDesc: 'كيف انحرف الفكر القومي عن جذوره الإسلامية',
-    habitsTitle: 'عاداتي اليومية',
-    habitsDesc: 'عادات مستوحاة من الكتاب — تتبّع تقدمك يومياً',
-    quizTitle: 'اختبر معلوماتك',
-    quizDesc: 'ما مدى فهمك للعلاقة بين الإسلام والعروبة؟',
+    tabHome: 'الرئيسية', tabTraits: 'المحاور', tabQuiz: 'المسابقة',
+    tabProgress: 'تقدمي', tabAbout: 'الكتاب',
+    traitsTitle: 'محاور الكتاب',
+    traitsDesc: '٢٠ محوراً من كتاب الشيخ الغزالي — كل محور بآية وحديث وتطبيق عملي',
+    quizTitle: '🏆 من سيصبح عالِماً؟',
+    quizDesc: 'اختبر معلوماتك عن القومية والهوية — ٤ خيارات لكل سؤال',
+    progressTitle: 'رحلتي المعرفية',
+    progressDesc: 'تقدمك وإنجازاتك في فهم القومية والإسلام',
     helpTitle: '❓ مساعدة',
-    duaPanelTitle: '🤲 أدعية الوحدة والأخوة',
-    resetBtn: 'إعادة تعيين اليوم',
-    submitQuiz: 'اعرف النتيجة',
-    dailyLabel: '✨ فكرة اليوم',
-    quizAgain: 'أعد الاختبار',
-    yes: 'نعم', no: 'لا', sometimes: 'أحياناً',
+    duaPanelTitle: '🤲 أدعية الوحدة والأخوّة',
+    dailyLabel: '✨ محور اليوم',
+    searchPlaceholder: 'ابحث في المحاور...',
     share: 'مشاركة',
-    searchPlaceholder: 'ابحث في البطاقات...',
+    verse: 'الآية',
+    hadith: 'الحديث',
+    apply: '💡 طبّق الآن',
+    youngMode: '🌟 مستكشف صغير',
+    teenMode: '📖 باحث شاب',
+    xpLabel: 'نقاط الخبرة',
+    levelLabel: 'المستوى',
     streakMsg: 'يوم متتالي!',
-    allDone: 'أحسنت! أكملت جميع العادات!',
-    keyIdea: '💡 الفكرة الرئيسية',
-    islamicView: '☪️ المنظور الإسلامي',
-    evidence: '📖 الدليل',
+    readMore: 'اقرأ المزيد',
+    nextQ: 'السؤال التالي',
+    lifeline5050: '50/50',
+    lifelineHint: '💡 تلميح',
+    lifelineQuran: '📖 مرجع قرآني',
+    correct: 'أحسنت! إجابة صحيحة! 🎉',
+    wrong: 'حاول مرة أخرى 💪',
+    quizComplete: 'انتهت المسابقة!',
+    score: 'النتيجة',
+    tryAgain: 'أعد المسابقة',
+    badge_beginner: 'مبتدئ',
+    badge_reader: 'قارئ',
+    badge_scholar: 'عالم',
+    badge_persistent: 'مثابر',
+    badge_expert: 'خبير',
     splashFeatures: [
-      '٢٠ بطاقة معرفية حول القومية والإسلام',
-      'نقد فكر البعث العربي',
-      'عادات يومية لتعزيز الهوية الإسلامية',
-      'اختبار ذاتي + أدعية يومية'
+      '٢٠ محوراً من كتاب حقيقة القومية العربية',
+      'مسابقة "من سيصبح عالماً" بالمكافآت',
+      'نظام النقاط والشارات والمستويات',
+      'وضع مستكشف صغير ووضع باحث شاب'
     ],
   },
   en: {
-    appTitle: 'Arab Nationalism: Truth & Myth',
-    splashSub: 'The myth of Ba\'athism exposed',
+    appTitle: 'Arab Nationalism: Reality & Myth',
+    splashSub: 'Identity and unity in the light of Islam',
     splashHint: 'tap to skip',
     sacredRef: 'Surah Al-Hujurat 49:13',
-    tabHome: 'Home', tabCards: 'Cards', tabCritique: 'Critique',
-    tabHabits: 'Habits', tabQuiz: 'Quiz', tabAbout: 'Book',
-    cardsTitle: 'Knowledge Cards',
-    cardsDesc: '20 cards on Arab identity, Islam, and nationalism',
-    critiqueTitle: 'Critique of Ba\'athism',
-    critiqueDesc: 'How nationalist ideology deviated from its Islamic roots',
-    habitsTitle: 'My Daily Habits',
-    habitsDesc: 'Habits inspired by the book — track your daily progress',
-    quizTitle: 'Test Your Knowledge',
-    quizDesc: 'How well do you understand the relationship between Islam and Arabism?',
+    tabHome: 'Home', tabTraits: 'Topics', tabQuiz: 'Quiz',
+    tabProgress: 'Progress', tabAbout: 'Book',
+    traitsTitle: 'Book Topics',
+    traitsDesc: '20 key topics from Sheikh al-Ghazali — each with a verse, hadith, and practical reflection',
+    quizTitle: '🏆 Who Wants to Be a Scholar?',
+    quizDesc: 'Test your knowledge of nationalism and identity — 4 choices per question',
+    progressTitle: 'My Knowledge Journey',
+    progressDesc: 'Your progress and achievements in understanding nationalism and Islam',
     helpTitle: '❓ Help',
     duaPanelTitle: '🤲 Duas for Unity & Brotherhood',
-    resetBtn: 'Reset Today',
-    submitQuiz: 'See Results',
-    dailyLabel: '✨ Today\'s Insight',
-    quizAgain: 'Retake Quiz',
-    yes: 'Yes', no: 'No', sometimes: 'Sometimes',
+    dailyLabel: "✨ Today's Topic",
+    searchPlaceholder: 'Search topics...',
     share: 'Share',
-    searchPlaceholder: 'Search cards...',
+    verse: 'Verse',
+    hadith: 'Hadith',
+    apply: '💡 Reflect Now',
+    youngMode: '🌟 Young Explorer',
+    teenMode: '📖 Teen Scholar',
+    xpLabel: 'Experience Points',
+    levelLabel: 'Level',
     streakMsg: 'day streak!',
-    allDone: 'Well done! All habits completed!',
-    keyIdea: '💡 Key Idea',
-    islamicView: '☪️ Islamic Perspective',
-    evidence: '📖 Evidence',
+    readMore: 'Read More',
+    nextQ: 'Next Question',
+    lifeline5050: '50/50',
+    lifelineHint: '💡 Hint',
+    lifelineQuran: '📖 Quran Ref',
+    correct: 'Well done! Correct answer! 🎉',
+    wrong: 'Try again next time 💪',
+    quizComplete: 'Quiz Complete!',
+    score: 'Score',
+    tryAgain: 'Retry Quiz',
+    badge_beginner: 'Beginner',
+    badge_reader: 'Reader',
+    badge_scholar: 'Scholar',
+    badge_persistent: 'Persistent',
+    badge_expert: 'Expert',
     splashFeatures: [
-      '20 knowledge cards on nationalism & Islam',
-      'Critique of Ba\'athist ideology',
-      'Daily habits for Islamic identity',
-      'Self-quiz + daily duas'
+      '20 key topics from Arab Nationalism: Reality & Myth',
+      '"Who Wants to Be a Scholar?" quiz with rewards',
+      'Points, badges, and level system',
+      'Young Explorer and Teen Scholar modes'
     ],
   },
   fr: {
-    appTitle: 'Le Nationalisme Arabe : Verite et Mythe',
-    splashSub: 'Le mythe du baathisme expose',
+    appTitle: 'Le Nationalisme Arabe : Realite et Mythe',
+    splashSub: "L'identite et l'unite a la lumiere de l'Islam",
     splashHint: 'appuyez pour passer',
     sacredRef: 'Sourate Al-Hujurat 49:13',
-    tabHome: 'Accueil', tabCards: 'Cartes', tabCritique: 'Critique',
-    tabHabits: 'Habitudes', tabQuiz: 'Quiz', tabAbout: 'Livre',
-    cardsTitle: 'Cartes de Savoir',
-    cardsDesc: '20 cartes sur l\'identite arabe, l\'Islam et le nationalisme',
-    critiqueTitle: 'Critique du Baathisme',
-    critiqueDesc: 'Comment l\'ideologie nationaliste a devie de ses racines islamiques',
-    habitsTitle: 'Mes Habitudes Quotidiennes',
-    habitsDesc: 'Habitudes inspirees du livre — suivez vos progres',
-    quizTitle: 'Testez Vos Connaissances',
-    quizDesc: 'Comprenez-vous la relation entre l\'Islam et l\'arabisme ?',
+    tabHome: 'Accueil', tabTraits: 'Themes', tabQuiz: 'Quiz',
+    tabProgress: 'Progres', tabAbout: 'Livre',
+    traitsTitle: 'Themes du Livre',
+    traitsDesc: '20 themes cles du livre du Sheikh al-Ghazali — chacun avec un verset, un hadith et une reflexion pratique',
+    quizTitle: '🏆 Qui Veut Devenir Savant ?',
+    quizDesc: 'Testez vos connaissances sur le nationalisme et l\'identite — 4 choix par question',
+    progressTitle: 'Mon Parcours',
+    progressDesc: 'Vos progres et realisations dans la comprehension du nationalisme et de l\'Islam',
     helpTitle: '❓ Aide',
     duaPanelTitle: '🤲 Duas pour l\'Unite et la Fraternite',
-    resetBtn: 'Reinitialiser',
-    submitQuiz: 'Voir les Resultats',
-    dailyLabel: '✨ Pensee du Jour',
-    quizAgain: 'Refaire le Quiz',
-    yes: 'Oui', no: 'Non', sometimes: 'Parfois',
+    dailyLabel: '✨ Theme du Jour',
+    searchPlaceholder: 'Rechercher les themes...',
     share: 'Partager',
-    searchPlaceholder: 'Rechercher les cartes...',
+    verse: 'Verset',
+    hadith: 'Hadith',
+    apply: '💡 Reflechissez',
+    youngMode: '🌟 Jeune Explorateur',
+    teenMode: '📖 Jeune Chercheur',
+    xpLabel: "Points d'Experience",
+    levelLabel: 'Niveau',
     streakMsg: 'jours consecutifs !',
-    allDone: 'Bravo ! Toutes les habitudes accomplies !',
-    keyIdea: '💡 Idee Cle',
-    islamicView: '☪️ Perspective Islamique',
-    evidence: '📖 Preuve',
+    readMore: 'Lire Plus',
+    nextQ: 'Question Suivante',
+    lifeline5050: '50/50',
+    lifelineHint: '💡 Indice',
+    lifelineQuran: '📖 Ref. Coran',
+    correct: 'Bravo ! Bonne reponse ! 🎉',
+    wrong: 'Reessayez la prochaine fois 💪',
+    quizComplete: 'Quiz Termine !',
+    score: 'Score',
+    tryAgain: 'Refaire le Quiz',
+    badge_beginner: 'Debutant',
+    badge_reader: 'Lecteur',
+    badge_scholar: 'Savant',
+    badge_persistent: 'Perseverant',
+    badge_expert: 'Expert',
     splashFeatures: [
-      '20 cartes de savoir sur le nationalisme et l\'Islam',
-      'Critique de l\'ideologie baathiste',
-      'Habitudes quotidiennes pour l\'identite islamique',
-      'Quiz + duas quotidiennes'
+      '20 themes cles du livre Le Nationalisme Arabe',
+      'Quiz « Qui Veut Devenir Savant ? » avec recompenses',
+      'Systeme de points, badges et niveaux',
+      'Modes Jeune Explorateur et Jeune Chercheur'
     ],
   }
 };
 
-// ═══════════════ CARDS DATA (20 knowledge cards) ═══════════════
-const CARDS = [
-  {id:1, emoji:'🌍',
-    ar:{title:'العروبة والإسلام',desc:'العروبة لا تنفصل عن الإسلام. اللغة العربية هي لغة القرآن، والعرب حملوا رسالة الإسلام للعالم. لكن العروبة بدون إسلام فارغة من مضمونها الحضاري.',idea:'الإسلام هو الذي أعطى العروبة معناها الحقيقي',islamic:'قال تعالى: "إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ"',evidence:'سورة يوسف ١٢: ٢'},
-    en:{title:'Arabism and Islam',desc:'Arabism cannot be separated from Islam. Arabic is the language of the Quran, and Arabs carried Islam\'s message to the world. But Arabism without Islam is empty of civilizational substance.',idea:'Islam is what gave Arabism its true meaning',islamic:'Allah says: "Indeed, We have sent it down as an Arabic Quran that you might understand"',evidence:'Surah Yusuf 12:2'},
-    fr:{title:'Arabisme et Islam',desc:'L\'arabisme ne peut etre separe de l\'Islam. L\'arabe est la langue du Coran, et les Arabes ont porte le message de l\'Islam au monde. Mais l\'arabisme sans Islam est vide de substance civilisationnelle.',idea:'C\'est l\'Islam qui a donne a l\'arabisme son vrai sens',islamic:'Allah dit : "Nous l\'avons fait descendre en un Coran arabe afin que vous raisonniez"',evidence:'Sourate Youssouf 12:2'}},
-  {id:2, emoji:'⚖️',
-    ar:{title:'المساواة في الإسلام',desc:'الإسلام لا يفرّق بين عربي وأعجمي إلا بالتقوى. القومية التي تضع العرب فوق غيرهم تناقض جوهر الإسلام.',idea:'لا فضل لعربي على أعجمي إلا بالتقوى',islamic:'قال النبي ﷺ: "لا فضل لعربي على أعجمي ولا لأبيض على أسود إلا بالتقوى"',evidence:'رواه أحمد'},
-    en:{title:'Equality in Islam',desc:'Islam makes no distinction between Arab and non-Arab except through piety. Nationalism that elevates Arabs above others contradicts the essence of Islam.',idea:'No Arab has superiority over a non-Arab except through piety',islamic:'The Prophet (peace be upon him) said: "No Arab has superiority over a non-Arab, nor white over black, except through piety"',evidence:'Narrated by Ahmad'},
-    fr:{title:'Egalite en Islam',desc:'L\'Islam ne fait aucune distinction entre Arabe et non-Arabe sauf par la piete. Le nationalisme qui eleve les Arabes au-dessus des autres contredit l\'essence de l\'Islam.',idea:'Aucun Arabe n\'a de superiorite sur un non-Arabe sauf par la piete',islamic:'Le Prophete (paix sur lui) a dit : "Aucun Arabe n\'a de superiorite sur un non-Arabe, ni un blanc sur un noir, sauf par la piete"',evidence:'Rapporte par Ahmad'}},
-  {id:3, emoji:'🏛️',
-    ar:{title:'أسطورة البعث',desc:'حزب البعث العربي وعد بالوحدة والحرية والاشتراكية، لكنه حقق الاستبداد والتفرقة والفقر. فكره العلماني فصل الأمة عن هويتها الإسلامية.',idea:'البعث وعد بالنهضة لكنه جلب الخراب',islamic:'قال تعالى: "وَمَنْ أَعْرَضَ عَن ذِكْرِي فَإِنَّ لَهُ مَعِيشَةً ضَنكًا"',evidence:'سورة طه ٢٠: ١٢٤'},
-    en:{title:'The Myth of Ba\'athism',desc:'The Ba\'ath Party promised unity, freedom, and socialism, but delivered tyranny, division, and poverty. Its secular ideology separated the Ummah from its Islamic identity.',idea:'Ba\'athism promised renaissance but brought ruin',islamic:'Allah says: "Whoever turns away from My remembrance will have a miserable life"',evidence:'Surah Ta-Ha 20:124'},
-    fr:{title:'Le Mythe du Baathisme',desc:'Le parti Baath a promis unite, liberte et socialisme, mais a livre tyrannie, division et pauvrete. Son ideologie laique a separe l\'Oumma de son identite islamique.',idea:'Le baathisme a promis une renaissance mais a apporte la ruine',islamic:'Allah dit : "Quiconque se detourne de Mon rappel aura une vie miserable"',evidence:'Sourate Ta-Ha 20:124'}},
-  {id:4, emoji:'🤝',
-    ar:{title:'الأخوة الإسلامية فوق القومية',desc:'الرابطة الإسلامية أقوى وأوسع من الرابطة القومية. بلال الحبشي وسلمان الفارسي وصهيب الرومي كانوا إخوة للعرب في الإسلام.',idea:'الأخوة في الدين أعمق من الأخوة في العرق',islamic:'قال تعالى: "إِنَّمَا الْمُؤْمِنُونَ إِخْوَةٌ"',evidence:'سورة الحجرات ٤٩: ١٠'},
-    en:{title:'Islamic Brotherhood Above Nationalism',desc:'The Islamic bond is stronger and wider than the nationalist bond. Bilal the Ethiopian, Salman the Persian, and Suhaib the Roman were brothers to Arabs in Islam.',idea:'Brotherhood in faith runs deeper than brotherhood in race',islamic:'Allah says: "The believers are but brothers"',evidence:'Surah Al-Hujurat 49:10'},
-    fr:{title:'Fraternite Islamique au-dessus du Nationalisme',desc:'Le lien islamique est plus fort et plus large que le lien nationaliste. Bilal l\'Ethiopien, Salman le Perse et Suhaib le Romain etaient freres des Arabes en Islam.',idea:'La fraternite dans la foi est plus profonde que celle de la race',islamic:'Allah dit : "Les croyants ne sont que des freres"',evidence:'Sourate Al-Hujurat 49:10'}},
-  {id:5, emoji:'📜',
-    ar:{title:'العرب قبل الإسلام',desc:'قبل الإسلام كان العرب قبائل متناحرة بلا حضارة موحدة. الإسلام هو الذي وحّدهم وصنع منهم أمة قادت العالم.',idea:'الإسلام هو الذي صنع مجد العرب لا العكس',islamic:'قال عمر: "نحن قوم أعزنا الله بالإسلام فمهما ابتغينا العزة بغيره أذلنا الله"',evidence:'رواه الحاكم'},
-    en:{title:'Arabs Before Islam',desc:'Before Islam, Arabs were warring tribes without a unified civilization. Islam united them and made them a nation that led the world.',idea:'Islam created Arab glory, not the other way around',islamic:'Umar said: "We are a people whom Allah honored through Islam. Whenever we seek honor through other than it, Allah will disgrace us"',evidence:'Narrated by al-Hakim'},
-    fr:{title:'Les Arabes avant l\'Islam',desc:'Avant l\'Islam, les Arabes etaient des tribus en guerre sans civilisation unifiee. L\'Islam les a unis et en a fait une nation qui a dirige le monde.',idea:'L\'Islam a cree la gloire arabe, pas l\'inverse',islamic:'Omar a dit : "Nous sommes un peuple qu\'Allah a honore par l\'Islam. Chaque fois que nous cherchons l\'honneur autrement, Allah nous humilie"',evidence:'Rapporte par al-Hakim'}},
-  {id:6, emoji:'🌐',
-    ar:{title:'القومية فكرة غربية',desc:'القومية العربية مستوردة من أوروبا. الغرب شجّع القومية لتفريق المسلمين بعد سقوط الخلافة.',idea:'القومية سلاح استعماري لتفتيت الأمة',islamic:'قال تعالى: "وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا"',evidence:'سورة آل عمران ٣: ١٠٣'},
-    en:{title:'Nationalism is a Western Import',desc:'Arab nationalism was imported from Europe. The West encouraged nationalism to divide Muslims after the fall of the Caliphate.',idea:'Nationalism is a colonial weapon to fragment the Ummah',islamic:'Allah says: "Hold firmly to the rope of Allah all together and do not become divided"',evidence:'Surah Ali Imran 3:103'},
-    fr:{title:'Le Nationalisme est une Importation Occidentale',desc:'Le nationalisme arabe a ete importe d\'Europe. L\'Occident a encourage le nationalisme pour diviser les musulmans apres la chute du Califat.',idea:'Le nationalisme est une arme coloniale pour fragmenter l\'Oumma',islamic:'Allah dit : "Cramponnez-vous tous ensemble au cable d\'Allah et ne soyez pas divises"',evidence:'Sourate Ali Imrane 3:103'}},
-  {id:7, emoji:'🗣️',
-    ar:{title:'اللغة العربية رابطة دينية',desc:'العربية ليست مجرد لغة عرقية بل هي لغة القرآن والعبادة. غير العرب يتعلمونها حباً في الدين لا في العرق.',idea:'العربية تجمع المسلمين لا العرب فقط',islamic:'قال النبي ﷺ: "ليست العربية بأحدكم من أب ولا أم وإنما هي اللسان"',evidence:'رواه البيهقي'},
-    en:{title:'Arabic: A Religious Bond',desc:'Arabic is not merely an ethnic language but the language of the Quran and worship. Non-Arabs learn it out of love for the religion, not for ethnicity.',idea:'Arabic unites Muslims, not just Arabs',islamic:'The Prophet (peace be upon him) said: "Being Arab is not through father or mother but through the tongue"',evidence:'Narrated by al-Bayhaqi'},
-    fr:{title:'L\'Arabe : Un Lien Religieux',desc:'L\'arabe n\'est pas simplement une langue ethnique mais la langue du Coran et du culte. Les non-Arabes l\'apprennent par amour de la religion, pas de l\'ethnie.',idea:'L\'arabe unit les musulmans, pas seulement les Arabes',islamic:'Le Prophete (paix sur lui) a dit : "Etre Arabe ne vient pas du pere ou de la mere mais de la langue"',evidence:'Rapporte par al-Bayhaqi'}},
-  {id:8, emoji:'💔',
-    ar:{title:'القومية تفرّق المسلمين',desc:'عندما تبنّى العرب القومية، فقدوا تركيا وإيران وباكستان وإندونيسيا. القومية حوّلت حلفاء إلى غرباء.',idea:'القومية أضاعت أكثر مما كسبت',islamic:'قال تعالى: "وَلَا تَكُونُوا كَالَّذِينَ تَفَرَّقُوا وَاخْتَلَفُوا مِن بَعْدِ مَا جَاءَهُمُ الْبَيِّنَاتُ"',evidence:'سورة آل عمران ٣: ١٠٥'},
-    en:{title:'Nationalism Divides Muslims',desc:'When Arabs adopted nationalism, they lost Turkey, Iran, Pakistan, and Indonesia as allies. Nationalism turned allies into strangers.',idea:'Nationalism lost more than it gained',islamic:'Allah says: "Do not be like those who became divided and differed after clear proofs came to them"',evidence:'Surah Ali Imran 3:105'},
-    fr:{title:'Le Nationalisme Divise les Musulmans',desc:'Quand les Arabes ont adopte le nationalisme, ils ont perdu la Turquie, l\'Iran, le Pakistan et l\'Indonesie comme allies. Le nationalisme a transforme des allies en etrangers.',idea:'Le nationalisme a perdu plus qu\'il n\'a gagne',islamic:'Allah dit : "Ne soyez pas comme ceux qui se sont divises et ont diverge apres que les preuves claires leur soient venues"',evidence:'Sourate Ali Imrane 3:105'}},
-  {id:9, emoji:'⚔️',
-    ar:{title:'العصبية الجاهلية',desc:'النعرة القومية هي نفسها العصبية التي حاربها الإسلام. "أبالجاهلية تدعون وأنا بين أظهركم؟"',idea:'القومية المتعصبة هي جاهلية معاصرة',islamic:'قال النبي ﷺ: "دعوها فإنها منتنة"',evidence:'متفق عليه'},
-    en:{title:'Pre-Islamic Tribalism',desc:'Nationalist fervor is the same tribalism that Islam fought against. "Are you calling to the ways of ignorance while I am among you?"',idea:'Extreme nationalism is modern-day tribalism',islamic:'The Prophet (peace be upon him) said: "Leave it, for it is rotten"',evidence:'Agreed upon (Bukhari & Muslim)'},
-    fr:{title:'Le Tribalisme Pre-Islamique',desc:'La ferveur nationaliste est le meme tribalisme que l\'Islam a combattu. "Appelez-vous a la jahiliyya alors que je suis parmi vous ?"',idea:'Le nationalisme extreme est un tribalisme moderne',islamic:'Le Prophete (paix sur lui) a dit : "Laissez cela, car c\'est une chose pourrie"',evidence:'Unanimement reconnu (Bukhari et Muslim)'}},
-  {id:10, emoji:'🏗️',
-    ar:{title:'الوحدة على أساس الإسلام',desc:'الوحدة العربية الحقيقية لا تتحقق إلا على أساس الإسلام. كل محاولات الوحدة العلمانية فشلت فشلاً ذريعاً.',idea:'الإسلام هو الأساس الوحيد للوحدة الحقيقية',islamic:'قال تعالى: "وَأَنَّ هَٰذَا صِرَاطِي مُسْتَقِيمًا فَاتَّبِعُوهُ وَلَا تَتَّبِعُوا السُّبُلَ فَتَفَرَّقَ بِكُمْ"',evidence:'سورة الأنعام ٦: ١٥٣'},
-    en:{title:'Unity on Islamic Foundations',desc:'True Arab unity can only be achieved on the foundation of Islam. All attempts at secular unity have failed miserably.',idea:'Islam is the only foundation for true unity',islamic:'Allah says: "This is My straight path, so follow it and do not follow other paths, for they will separate you from His way"',evidence:'Surah Al-An\'am 6:153'},
-    fr:{title:'Unite sur les Fondations Islamiques',desc:'La vraie unite arabe ne peut etre realisee que sur la base de l\'Islam. Toutes les tentatives d\'unite laique ont echoue lamentablement.',idea:'L\'Islam est le seul fondement de la vraie unite',islamic:'Allah dit : "Voici Mon chemin droit, suivez-le et ne suivez pas les sentiers qui vous ecarteront de Sa voie"',evidence:'Sourate Al-An\'am 6:153'}},
-  {id:11, emoji:'📚',
-    ar:{title:'التاريخ يشهد',desc:'أعظم إنجازات العرب كانت تحت راية الإسلام: الفتوحات، العلوم، الحضارة. عندما تخلّوا عن الإسلام تراجعوا.',idea:'مجد العرب مرتبط بالتزامهم بالإسلام',islamic:'قال تعالى: "كُنتُمْ خَيْرَ أُمَّةٍ أُخْرِجَتْ لِلنَّاسِ تَأْمُرُونَ بِالْمَعْرُوفِ وَتَنْهَوْنَ عَنِ الْمُنكَرِ"',evidence:'سورة آل عمران ٣: ١١٠'},
-    en:{title:'History Testifies',desc:'The greatest achievements of Arabs were under the banner of Islam: conquests, sciences, civilization. When they abandoned Islam, they declined.',idea:'Arab glory is tied to their commitment to Islam',islamic:'Allah says: "You are the best nation produced for mankind. You enjoin what is right and forbid what is wrong"',evidence:'Surah Ali Imran 3:110'},
-    fr:{title:'L\'Histoire Temoigne',desc:'Les plus grandes realisations des Arabes furent sous la banniere de l\'Islam : conquetes, sciences, civilisation. Quand ils ont abandonne l\'Islam, ils ont decline.',idea:'La gloire arabe est liee a leur engagement envers l\'Islam',islamic:'Allah dit : "Vous etes la meilleure communaute suscitee pour les hommes. Vous ordonnez le convenable et interdisez le blamable"',evidence:'Sourate Ali Imrane 3:110'}},
-  {id:12, emoji:'🕌',
-    ar:{title:'الخلافة جمعت الشعوب',desc:'الخلافة الإسلامية وحّدت العرب والفرس والترك والأمازيغ تحت راية واحدة. القومية فرّقت ما جمعه الإسلام.',idea:'الخلافة نموذج ناجح للوحدة فوق القومية',islamic:'قال النبي ﷺ: "المسلم أخو المسلم لا يظلمه ولا يسلمه"',evidence:'متفق عليه'},
-    en:{title:'The Caliphate United Peoples',desc:'The Islamic Caliphate united Arabs, Persians, Turks, and Berbers under one banner. Nationalism divided what Islam had gathered.',idea:'The Caliphate was a successful model of supra-national unity',islamic:'The Prophet (peace be upon him) said: "A Muslim is the brother of a Muslim — he does not oppress him nor forsake him"',evidence:'Agreed upon (Bukhari & Muslim)'},
-    fr:{title:'Le Califat a Uni les Peuples',desc:'Le Califat islamique a uni Arabes, Perses, Turcs et Berberes sous une seule banniere. Le nationalisme a divise ce que l\'Islam avait rassemble.',idea:'Le Califat etait un modele reussi d\'unite supranationale',islamic:'Le Prophete (paix sur lui) a dit : "Le musulman est le frere du musulman, il ne l\'opprime pas et ne l\'abandonne pas"',evidence:'Unanimement reconnu (Bukhari et Muslim)'}},
-  {id:13, emoji:'🧭',
-    ar:{title:'الهوية الحقيقية',desc:'هوية المسلم الأولى هي إسلامه لا عرقه. يمكن أن يفخر بعروبته لكن لا يجعلها فوق دينه.',idea:'الإسلام أولاً ثم الانتماءات الأخرى',islamic:'قال تعالى: "يَا أَيُّهَا النَّاسُ إِنَّا خَلَقْنَاكُم مِّن ذَكَرٍ وَأُنثَىٰ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا"',evidence:'سورة الحجرات ٤٩: ١٣'},
-    en:{title:'True Identity',desc:'A Muslim\'s primary identity is their Islam, not their ethnicity. One can take pride in being Arab, but must not place it above their religion.',idea:'Islam first, then other affiliations',islamic:'Allah says: "O mankind, We created you from male and female and made you peoples and tribes that you may know one another"',evidence:'Surah Al-Hujurat 49:13'},
-    fr:{title:'La Vraie Identite',desc:'L\'identite premiere d\'un musulman est son Islam, pas son ethnie. On peut etre fier d\'etre Arabe, mais ne doit pas le placer au-dessus de sa religion.',idea:'L\'Islam d\'abord, puis les autres appartenances',islamic:'Allah dit : "O hommes, Nous vous avons crees d\'un male et d\'une femelle et avons fait de vous des peuples et des tribus pour que vous vous entreconnaissiez"',evidence:'Sourate Al-Hujurat 49:13'}},
-  {id:14, emoji:'🔥',
-    ar:{title:'البعث والاستبداد',desc:'الأنظمة البعثية في العراق وسوريا أقامت حكماً استبدادياً باسم القومية. قمعت الحريات وسجنت العلماء.',idea:'القومية العلمانية تؤدي حتماً إلى الاستبداد',islamic:'قال النبي ﷺ: "إن الله ليزع بالسلطان ما لا يزع بالقرآن" — لكن السلطان الظالم يفسد أكثر مما يصلح',evidence:'أثر عثمان رضي الله عنه'},
-    en:{title:'Ba\'athism and Tyranny',desc:'Ba\'athist regimes in Iraq and Syria established tyrannical rule in the name of nationalism. They suppressed freedoms and imprisoned scholars.',idea:'Secular nationalism inevitably leads to tyranny',islamic:'The Prophet (peace be upon him) said: "Allah restrains through authority what He does not restrain through the Quran" — but unjust authority corrupts more than it fixes',evidence:'Saying of Uthman (may Allah be pleased with him)'},
-    fr:{title:'Baathisme et Tyrannie',desc:'Les regimes baathistes en Irak et en Syrie ont etabli un pouvoir tyrannique au nom du nationalisme. Ils ont reprime les libertes et emprisonne les savants.',idea:'Le nationalisme laique mene inevitablement a la tyrannie',islamic:'Le Prophete (paix sur lui) a dit : "Allah retient par l\'autorite ce qu\'Il ne retient pas par le Coran" — mais l\'autorite injuste corrompt plus qu\'elle ne repare',evidence:'Parole de Outhman (qu\'Allah l\'agree)'}},
-  {id:15, emoji:'🌱',
-    ar:{title:'البديل الإسلامي',desc:'البديل عن القومية ليس التخلي عن الهوية العربية بل وضعها في إطارها الصحيح — خادمة للإسلام لا بديلة عنه.',idea:'العروبة في خدمة الإسلام لا في مواجهته',islamic:'قال تعالى: "وَكَذَٰلِكَ جَعَلْنَاكُمْ أُمَّةً وَسَطًا لِّتَكُونُوا شُهَدَاءَ عَلَى النَّاسِ"',evidence:'سورة البقرة ٢: ١٤٣'},
-    en:{title:'The Islamic Alternative',desc:'The alternative to nationalism is not abandoning Arab identity but placing it in its proper framework — serving Islam, not replacing it.',idea:'Arabism in service of Islam, not in opposition to it',islamic:'Allah says: "And thus We have made you a just community that you will be witnesses over the people"',evidence:'Surah Al-Baqarah 2:143'},
-    fr:{title:'L\'Alternative Islamique',desc:'L\'alternative au nationalisme n\'est pas d\'abandonner l\'identite arabe mais de la placer dans son cadre adequat — au service de l\'Islam, pas en remplacement.',idea:'L\'arabisme au service de l\'Islam, pas contre lui',islamic:'Allah dit : "Ainsi Nous avons fait de vous une communaute juste pour que vous soyez temoins envers les gens"',evidence:'Sourate Al-Baqara 2:143'}},
-  {id:16, emoji:'🎓',
-    ar:{title:'العلم قبل الشعارات',desc:'الأمة تنهض بالعلم والعمل لا بالشعارات الجوفاء. القومية اكتفت بالخطابات وأهملت بناء الإنسان.',idea:'البناء الحقيقي يبدأ بالتعليم والتربية',islamic:'قال تعالى: "قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ"',evidence:'سورة الزمر ٣٩: ٩'},
-    en:{title:'Knowledge Before Slogans',desc:'A nation rises through knowledge and action, not hollow slogans. Nationalism relied on speeches and neglected building people.',idea:'True building starts with education and moral cultivation',islamic:'Allah says: "Say: Are those who know equal to those who do not know?"',evidence:'Surah Az-Zumar 39:9'},
-    fr:{title:'Le Savoir avant les Slogans',desc:'Une nation se leve par le savoir et l\'action, pas par des slogans creux. Le nationalisme s\'est contente de discours et a neglige la construction de l\'humain.',idea:'La vraie construction commence par l\'education et la culture morale',islamic:'Allah dit : "Dis : Sont-ils egaux ceux qui savent et ceux qui ne savent pas ?"',evidence:'Sourate Az-Zoumar 39:9'}},
-  {id:17, emoji:'🕊️',
-    ar:{title:'السلام لا العنف',desc:'القومية المتطرفة أنتجت حروباً بين المسلمين. الإسلام يدعو للسلام والحوار والتعايش.',idea:'الإسلام يبني جسور السلام بين الشعوب',islamic:'قال تعالى: "وَإِن جَنَحُوا لِلسَّلْمِ فَاجْنَحْ لَهَا وَتَوَكَّلْ عَلَى اللَّهِ"',evidence:'سورة الأنفال ٨: ٦١'},
-    en:{title:'Peace, Not Violence',desc:'Extreme nationalism produced wars between Muslims. Islam calls for peace, dialogue, and coexistence.',idea:'Islam builds bridges of peace between peoples',islamic:'Allah says: "If they incline to peace, then incline to it and rely upon Allah"',evidence:'Surah Al-Anfal 8:61'},
-    fr:{title:'La Paix, Pas la Violence',desc:'Le nationalisme extreme a produit des guerres entre musulmans. L\'Islam appelle a la paix, au dialogue et a la coexistence.',idea:'L\'Islam construit des ponts de paix entre les peuples',islamic:'Allah dit : "S\'ils inclinent a la paix, incline aussi vers elle et place ta confiance en Allah"',evidence:'Sourate Al-Anfal 8:61'}},
-  {id:18, emoji:'🧩',
-    ar:{title:'التنوع في الوحدة',desc:'الإسلام يحتضن التنوع العرقي واللغوي ويجعله آية من آيات الله، لا سبباً للتفرقة والتنافر.',idea:'التنوع ثراء لا تهديد',islamic:'قال تعالى: "وَمِنْ آيَاتِهِ خَلْقُ السَّمَاوَاتِ وَالْأَرْضِ وَاخْتِلَافُ أَلْسِنَتِكُمْ وَأَلْوَانِكُمْ"',evidence:'سورة الروم ٣٠: ٢٢'},
-    en:{title:'Diversity in Unity',desc:'Islam embraces ethnic and linguistic diversity and considers it a sign of Allah, not a cause for division and discord.',idea:'Diversity is richness, not a threat',islamic:'Allah says: "And of His signs is the creation of the heavens and the earth and the diversity of your languages and your colors"',evidence:'Surah Ar-Rum 30:22'},
-    fr:{title:'Diversite dans l\'Unite',desc:'L\'Islam embrasse la diversite ethnique et linguistique et la considere comme un signe d\'Allah, pas une cause de division.',idea:'La diversite est une richesse, pas une menace',islamic:'Allah dit : "Et parmi Ses signes, la creation des cieux et de la terre et la diversite de vos langues et de vos couleurs"',evidence:'Sourate Ar-Roum 30:22'}},
-  {id:19, emoji:'💪',
-    ar:{title:'القوة في الإيمان',desc:'قوة الأمة الحقيقية في إيمانها بالله لا في عصبيتها القومية. الإيمان يصنع المعجزات والقومية تصنع الأوهام.',idea:'الإيمان مصدر القوة الحقيقية',islamic:'قال تعالى: "وَلَا تَهِنُوا وَلَا تَحْزَنُوا وَأَنتُمُ الْأَعْلَوْنَ إِن كُنتُم مُّؤْمِنِينَ"',evidence:'سورة آل عمران ٣: ١٣٩'},
-    en:{title:'Strength Through Faith',desc:'The true strength of the Ummah lies in its faith in Allah, not in nationalist sentiment. Faith creates miracles while nationalism creates illusions.',idea:'Faith is the source of true strength',islamic:'Allah says: "Do not weaken and do not grieve, and you will be superior if you are believers"',evidence:'Surah Ali Imran 3:139'},
-    fr:{title:'La Force par la Foi',desc:'La vraie force de l\'Oumma reside dans sa foi en Allah, pas dans le sentiment nationaliste. La foi cree des miracles tandis que le nationalisme cree des illusions.',idea:'La foi est la source de la vraie force',islamic:'Allah dit : "Ne faiblissez pas et ne soyez pas tristes alors que vous etes les superieurs si vous etes croyants"',evidence:'Sourate Ali Imrane 3:139'}},
-  {id:20, emoji:'🌟',
-    ar:{title:'نحو نهضة إسلامية',desc:'الحل ليس في العودة للقومية ولا في تقليد الغرب، بل في العودة للإسلام الصحيح الذي يجمع بين الأصالة والمعاصرة.',idea:'النهضة الحقيقية تبدأ بالعودة للإسلام',islamic:'قال تعالى: "إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ"',evidence:'سورة الرعد ١٣: ١١'},
-    en:{title:'Toward an Islamic Renaissance',desc:'The solution is neither returning to nationalism nor imitating the West, but returning to authentic Islam that combines tradition and modernity.',idea:'True renaissance begins with returning to Islam',islamic:'Allah says: "Indeed, Allah will not change the condition of a people until they change what is in themselves"',evidence:'Surah Ar-Ra\'d 13:11'},
-    fr:{title:'Vers une Renaissance Islamique',desc:'La solution n\'est ni le retour au nationalisme ni l\'imitation de l\'Occident, mais le retour a l\'Islam authentique qui allie tradition et modernite.',idea:'La vraie renaissance commence par le retour a l\'Islam',islamic:'Allah dit : "Allah ne change pas l\'etat d\'un peuple tant qu\'ils ne changent pas ce qui est en eux-memes"',evidence:'Sourate Ar-Ra\'d 13:11'}}
+// ═══════════════ 20 TOPIC CARDS DATA ═══════════════
+const TRAITS = [
+  {
+    id:1, emoji:'🪞',
+    ar:{title:'أزمة الهوية',desc:'يعاني العالم العربي من أزمة هوية عميقة بين الانتماء للإسلام والانتماء للقومية. الغزالي يرى أن الأمة فقدت بوصلتها حين استبدلت رابطة الإيمان برابطة العرق والدم.',verse:'يَا أَيُّهَا النَّاسُ إِنَّا خَلَقْنَاكُمْ مِنْ ذَكَرٍ وَأُنْثَى وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا',verseRef:'الحجرات ١٣',hadith:'ليس منّا من دعا إلى عصبية — رواه أبو داود',action:'اسأل نفسك: هل هويتي مبنية على إيماني أم على عرقي؟ الإسلام يجمعنا جميعاً',young:'أنت مسلم أولاً! لا فرق بين عربي وغيره إلا بالتقوى والإيمان 🪞'},
+    en:{title:'Identity Crisis',desc:'The Arab world suffers from a deep identity crisis between belonging to Islam and belonging to nationalism. Al-Ghazali argues the Ummah lost its compass when it replaced the bond of faith with the bond of race and blood.',verse:'O humanity, We created you from male and female and made you peoples and tribes that you may know one another',verseRef:'Al-Hujurat 13',hadith:'He is not one of us who calls to tribalism — Abu Dawud',action:'Ask yourself: is my identity built on my faith or my ethnicity? Islam unites us all',young:'You are a Muslim first! There is no difference between Arab and non-Arab except in faith 🪞'},
+    fr:{title:'La Crise d\'Identite',desc:'Le monde arabe souffre d\'une profonde crise d\'identite entre l\'appartenance a l\'Islam et l\'appartenance au nationalisme. Al-Ghazali estime que la Oumma a perdu sa boussole quand elle a remplace le lien de la foi par celui de la race.',verse:'O humanite, Nous vous avons crees d\'un male et d\'une femelle et avons fait de vous des peuples et des tribus pour que vous vous connaissiez',verseRef:'Al-Hujurat 13',hadith:'N\'est pas des notres celui qui appelle au tribalisme — Abu Dawud',action:'Demandez-vous : mon identite est-elle fondee sur ma foi ou mon ethnie ? L\'Islam nous unit tous',young:'Tu es musulman d\'abord ! Il n\'y a pas de difference entre Arabe et non-Arabe sauf dans la foi 🪞'}
+  },
+  {
+    id:2, emoji:'⚔️',
+    ar:{title:'الإسلام والقومية',desc:'القومية فكرة تجعل الانتماء للعرق فوق كل رابطة. الإسلام يرفض هذا المنطق لأن رابطة الإيمان أقوى من رابطة الدم. المسلمون أمة واحدة بصرف النظر عن ألوانهم ولغاتهم.',verse:'إِنَّمَا الْمُؤْمِنُونَ إِخْوَةٌ',verseRef:'الحجرات ١٠',hadith:'المسلم أخو المسلم لا يظلمه ولا يخذله — رواه مسلم',action:'تعامل مع كل مسلم على أنه أخوك بغض النظر عن جنسيته أو لونه',young:'كل المسلمين إخوة! لا يهم من أي بلد أنت — الإيمان يجمعنا ⚔️'},
+    en:{title:'Islam vs Nationalism',desc:'Nationalism makes ethnic belonging superior to all other bonds. Islam rejects this logic because the bond of faith is stronger than the bond of blood. Muslims are one nation regardless of their colors and languages.',verse:'The believers are but brothers',verseRef:'Al-Hujurat 10',hadith:'A Muslim is the brother of a Muslim; he does not wrong him or abandon him — Muslim',action:'Treat every Muslim as your brother regardless of their nationality or color',young:'All Muslims are brothers and sisters! It does not matter which country you are from — faith unites us ⚔️'},
+    fr:{title:'L\'Islam contre le Nationalisme',desc:'Le nationalisme place l\'appartenance ethnique au-dessus de tout autre lien. L\'Islam rejette cette logique car le lien de la foi est plus fort que celui du sang. Les musulmans sont une seule nation.',verse:'Les croyants ne sont que des freres',verseRef:'Al-Hujurat 10',hadith:'Le musulman est le frere du musulman ; il ne lui fait pas de tort et ne l\'abandonne pas — Muslim',action:'Traitez chaque musulman comme votre frere quelle que soit sa nationalite ou sa couleur',young:'Tous les musulmans sont freres et soeurs ! Peu importe de quel pays tu viens — la foi nous unit ⚔️'}
+  },
+  {
+    id:3, emoji:'🔍',
+    ar:{title:'نقد البعث',desc:'حزب البعث رفع شعارات الوحدة والحرية لكنه في الواقع أنتج الاستبداد والتفرقة. الغزالي يكشف أن البعث استخدم القومية غطاءً لحكم الفرد وقمع الشعوب.',verse:'وَإِذَا قِيلَ لَهُمْ لَا تُفْسِدُوا فِي الْأَرْضِ قَالُوا إِنَّمَا نَحْنُ مُصْلِحُونَ',verseRef:'البقرة ١١',hadith:'كلكم راعٍ وكلكم مسؤول عن رعيته — متفق عليه',action:'احذر من الشعارات البراقة التي تخفي وراءها ظلماً — قيّم الأفعال لا الأقوال',young:'لا تصدق كل شعار جميل! انظر للأفعال وليس الكلام فقط 🔍'},
+    en:{title:'Critique of Ba\'athism',desc:'The Ba\'ath party raised slogans of unity and freedom but in reality produced tyranny and division. Al-Ghazali reveals that Ba\'athism used nationalism as a cover for one-man rule and oppression of peoples.',verse:'And when it is said to them: Do not cause corruption on earth, they say: We are only reformers',verseRef:'Al-Baqarah 11',hadith:'Each of you is a shepherd and each is responsible for their flock — Agreed upon',action:'Beware of shiny slogans that hide injustice — judge actions, not words',young:'Do not believe every nice slogan! Look at actions, not just words 🔍'},
+    fr:{title:'Critique du Baathisme',desc:'Le parti Baath a brandi des slogans d\'unite et de liberte mais a en realite produit la tyrannie et la division. Al-Ghazali revele que le baathisme a utilise le nationalisme comme couverture pour le pouvoir d\'un seul homme.',verse:'Et quand on leur dit : Ne semez pas la corruption sur terre, ils disent : Nous ne sommes que des reformateurs',verseRef:'Al-Baqarah 11',hadith:'Chacun de vous est un berger et chacun est responsable de son troupeau — Unanimement reconnu',action:'Mefiez-vous des slogans brillants qui cachent l\'injustice — jugez les actes, pas les paroles',young:'Ne crois pas chaque beau slogan ! Regarde les actions, pas seulement les mots 🔍'}
+  },
+  {
+    id:4, emoji:'🕌',
+    ar:{title:'الوحدة بالإيمان',desc:'الوحدة الحقيقية بين المسلمين لا تقوم على العرق أو اللغة بل على الإيمان بالله. التاريخ يثبت أن المسلمين حين اجتمعوا على الدين بنوا حضارة عظيمة تسع الجميع.',verse:'وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا',verseRef:'آل عمران ١٠٣',hadith:'مثل المؤمنين في توادهم كمثل الجسد الواحد — متفق عليه',action:'ابنِ جسوراً مع إخوانك المسلمين من كل الجنسيات — الإيمان يوحّدنا',young:'الإيمان يجمعنا مثل الحبل القوي! كلنا أمة واحدة 🕌'},
+    en:{title:'Unity Through Faith',desc:'True unity among Muslims is not based on race or language but on faith in God. History proves that when Muslims united through religion they built a great civilization that embraced everyone.',verse:'And hold firmly to the rope of Allah all together and do not become divided',verseRef:'Al Imran 103',hadith:'The believers in their mutual love are like one body — Agreed upon',action:'Build bridges with your Muslim brothers from all nationalities — faith unites us',young:'Faith brings us together like a strong rope! We are all one Ummah 🕌'},
+    fr:{title:'L\'Unite par la Foi',desc:'La vraie unite entre musulmans ne repose pas sur la race ou la langue mais sur la foi en Dieu. L\'histoire prouve que lorsque les musulmans se sont unis par la religion, ils ont bati une grande civilisation.',verse:'Et accrochez-vous tous ensemble a la corde d\'Allah et ne vous divisez pas',verseRef:'Al Imran 103',hadith:'Les croyants dans leur amour mutuel sont comme un seul corps — Unanimement reconnu',action:'Construisez des ponts avec vos freres musulmans de toutes nationalites — la foi nous unit',young:'La foi nous rassemble comme une corde solide ! Nous sommes tous une seule Oumma 🕌'}
+  },
+  {
+    id:5, emoji:'🏴',
+    ar:{title:'الجذور الاستعمارية',desc:'القومية العربية لم تنشأ من فراغ بل زرعها الاستعمار لتفريق المسلمين. الغزالي يبين أن الغرب شجّع القومية ليحل العرق محل الدين ويضعف الأمة من الداخل.',verse:'وَلَنْ تَرْضَى عَنْكَ الْيَهُودُ وَلَا النَّصَارَى حَتَّى تَتَّبِعَ مِلَّتَهُمْ',verseRef:'البقرة ١٢٠',hadith:'لا تزال طائفة من أمتي ظاهرين على الحق — رواه مسلم',action:'ادرس تاريخ بلادك بعين نقدية — افهم كيف استُخدمت القومية لتفريقنا',young:'تعلّم التاريخ الحقيقي! بعض الأفكار جاءت لتفرّقنا وليس لتجمعنا 🏴'},
+    en:{title:'Colonial Roots',desc:'Arab nationalism did not arise from a vacuum — it was planted by colonialism to divide Muslims. Al-Ghazali shows how the West encouraged nationalism to replace religion with race and weaken the Ummah from within.',verse:'And the Jews and Christians will never be pleased with you until you follow their way',verseRef:'Al-Baqarah 120',hadith:'A group of my Ummah will always remain victorious on truth — Muslim',action:'Study the history of your country with a critical eye — understand how nationalism was used to divide us',young:'Learn real history! Some ideas came to divide us, not to unite us 🏴'},
+    fr:{title:'Les Racines Coloniales',desc:'Le nationalisme arabe n\'est pas ne du neant — il a ete plante par le colonialisme pour diviser les musulmans. Al-Ghazali montre comment l\'Occident a encourage le nationalisme pour remplacer la religion par la race.',verse:'Et les Juifs et les Chretiens ne seront jamais satisfaits de toi jusqu\'a ce que tu suives leur voie',verseRef:'Al-Baqarah 120',hadith:'Un groupe de ma Oumma restera toujours victorieux sur la verite — Muslim',action:'Etudiez l\'histoire de votre pays avec un oeil critique — comprenez comment le nationalisme a ete utilise pour nous diviser',young:'Apprends la vraie histoire ! Certaines idees sont venues pour nous diviser, pas pour nous unir 🏴'}
+  },
+  {
+    id:6, emoji:'🗣️',
+    ar:{title:'اللغة والعرق',desc:'اللغة العربية نعمة عظيمة لكنها ليست معياراً للأفضلية. الإسلام لا يفرق بين الناس بلغاتهم بل بتقواهم. بلال الحبشي وسلمان الفارسي وصهيب الرومي كلهم صحابة أجلاء.',verse:'وَمِنْ آيَاتِهِ خَلْقُ السَّمَاوَاتِ وَالْأَرْضِ وَاخْتِلَافُ أَلْسِنَتِكُمْ وَأَلْوَانِكُمْ',verseRef:'الروم ٢٢',hadith:'لا فضل لعربي على أعجمي إلا بالتقوى — رواه أحمد',action:'تعلم لغة جديدة وتعرف على ثقافات إسلامية مختلفة — التنوع ثروة',young:'اللغات كثيرة والدين واحد! تعلّم عن ثقافات المسلمين المختلفة 🗣️'},
+    en:{title:'Language vs Ethnicity',desc:'The Arabic language is a great blessing but it is not a standard of superiority. Islam does not differentiate between people by their languages but by their piety. Bilal, Salman, and Suhayb were all honored companions.',verse:'And of His signs is the creation of the heavens and earth and the diversity of your languages and colors',verseRef:'Ar-Rum 22',hadith:'No Arab has superiority over a non-Arab except by piety — Ahmad',action:'Learn a new language and discover different Islamic cultures — diversity is wealth',young:'Languages are many but the religion is one! Learn about the diverse cultures of Muslims 🗣️'},
+    fr:{title:'Langue contre Ethnie',desc:'La langue arabe est une grande benediction mais elle n\'est pas un critere de superiorite. L\'Islam ne differencie pas les gens par leurs langues mais par leur piete. Bilal, Salman et Suhayb etaient tous d\'honores compagnons.',verse:'Et parmi Ses signes la creation des cieux et de la terre et la diversite de vos langues et couleurs',verseRef:'Ar-Rum 22',hadith:'Aucun Arabe n\'a de superiorite sur un non-Arabe sauf par la piete — Ahmad',action:'Apprenez une nouvelle langue et decouvrez differentes cultures islamiques — la diversite est une richesse',young:'Les langues sont nombreuses mais la religion est une ! Decouvre les differentes cultures des musulmans 🗣️'}
+  },
+  {
+    id:7, emoji:'🏛️',
+    ar:{title:'سقوط الخلافة',desc:'سقوط الخلافة العثمانية كان نقطة تحول كبرى. الغزالي يرى أن القوى الغربية ساهمت في تفكيكها باستخدام القومية سلاحاً. فقد المسلمون مظلة جامعة فتشرذموا.',verse:'وَلَا تَنَازَعُوا فَتَفْشَلُوا وَتَذْهَبَ رِيحُكُمْ',verseRef:'الأنفال ٤٦',hadith:'يد الله مع الجماعة — رواه الترمذي',action:'اقرأ عن تاريخ سقوط الخلافة وأسبابه — تعلّم الدروس من الماضي',young:'حين تفرّق المسلمون ضعفوا! الوحدة قوة والتفرقة ضعف 🏛️'},
+    en:{title:'Ottoman Dissolution',desc:'The fall of the Ottoman Caliphate was a major turning point. Al-Ghazali argues that Western powers contributed to its dismantling using nationalism as a weapon. Muslims lost their unifying umbrella and became fragmented.',verse:'And do not dispute lest you lose courage and your strength departs',verseRef:'Al-Anfal 46',hadith:'The hand of Allah is with the community — Tirmidhi',action:'Read about the history of the Caliphate\'s fall and its causes — learn lessons from the past',young:'When Muslims became divided they became weak! Unity is strength and division is weakness 🏛️'},
+    fr:{title:'La Dissolution Ottomane',desc:'La chute du califat ottoman fut un tournant majeur. Al-Ghazali soutient que les puissances occidentales ont contribue a son demantelement en utilisant le nationalisme comme arme. Les musulmans ont perdu leur parapluie unificateur.',verse:'Et ne vous disputez pas sinon vous perdrez courage et votre force partira',verseRef:'Al-Anfal 46',hadith:'La main d\'Allah est avec la communaute — Tirmidhi',action:'Lisez l\'histoire de la chute du califat et ses causes — tirez des lecons du passe',young:'Quand les musulmans se sont divises, ils se sont affaiblis ! L\'unite est force et la division est faiblesse 🏛️'}
+  },
+  {
+    id:8, emoji:'🗺️',
+    ar:{title:'الحدود المصطنعة',desc:'حدود الدول العربية رسمها المستعمرون وفق مصالحهم لا وفق إرادة الشعوب. اتفاقية سايكس بيكو مزقت الأمة إلى دويلات ضعيفة يسهل السيطرة عليها.',verse:'إِنَّ هَذِهِ أُمَّتُكُمْ أُمَّةً وَاحِدَةً وَأَنَا رَبُّكُمْ فَاعْبُدُونِ',verseRef:'الأنبياء ٩٢',hadith:'المؤمن للمؤمن كالبنيان يشد بعضه بعضاً — متفق عليه',action:'فكّر كيف يمكن للمسلمين التعاون رغم الحدود — التكامل الاقتصادي والثقافي ممكن',young:'الحدود على الخريطة لا تمنعنا من أن نكون إخوة! التعاون ممكن دائماً 🗺️'},
+    en:{title:'Artificial Borders',desc:'The borders of Arab states were drawn by colonizers according to their interests, not the will of the people. The Sykes-Picot agreement tore the Ummah into weak statelets easy to control.',verse:'Indeed this Ummah of yours is one Ummah and I am your Lord so worship Me',verseRef:'Al-Anbiya 92',hadith:'A believer to another believer is like a building whose parts support each other — Agreed upon',action:'Think about how Muslims can cooperate despite borders — economic and cultural integration is possible',young:'Borders on a map do not stop us from being brothers! Cooperation is always possible 🗺️'},
+    fr:{title:'Les Frontieres Artificielles',desc:'Les frontieres des Etats arabes ont ete tracees par les colonisateurs selon leurs interets, pas la volonte des peuples. L\'accord Sykes-Picot a dechire la Oumma en petits Etats faibles faciles a controler.',verse:'Certes cette Oumma qui est la votre est une Oumma unique et Je suis votre Seigneur alors adorez-Moi',verseRef:'Al-Anbiya 92',hadith:'Le croyant pour le croyant est comme un edifice dont les parties se soutiennent — Unanimement reconnu',action:'Reflechissez a comment les musulmans peuvent cooperer malgre les frontieres — l\'integration economique et culturelle est possible',young:'Les frontieres sur la carte ne nous empechent pas d\'etre freres ! La cooperation est toujours possible 🗺️'}
+  },
+  {
+    id:9, emoji:'⚠️',
+    ar:{title:'فشل العلمانية',desc:'العلمانية التي فُرضت على العالم العربي فشلت في تحقيق النهضة الموعودة. الغزالي يبين أن فصل الدين عن الحياة أنتج فراغاً روحياً وأخلاقياً ملأته الفوضى.',verse:'وَمَنْ أَعْرَضَ عَنْ ذِكْرِي فَإِنَّ لَهُ مَعِيشَةً ضَنْكًا',verseRef:'طه ١٢٤',hadith:'تركت فيكم ما إن تمسكتم به لن تضلوا: كتاب الله وسنتي — رواه مالك',action:'اربط حياتك اليومية بقيم الإسلام — الدين ليس مجرد عبادات بل منهج حياة',young:'الإسلام يعلمنا كل شيء! ليس فقط الصلاة بل كيف نعيش حياة جميلة ⚠️'},
+    en:{title:'Secularism\'s Failure',desc:'The secularism imposed on the Arab world failed to achieve the promised renaissance. Al-Ghazali shows that separating religion from life created a spiritual and moral vacuum filled by chaos.',verse:'And whoever turns away from My remembrance will have a miserable life',verseRef:'Taha 124',hadith:'I have left among you that which if you hold to you will never go astray: the Book of Allah and my Sunnah — Malik',action:'Connect your daily life to Islamic values — religion is not just worship but a way of life',young:'Islam teaches us everything! Not just prayer but how to live a beautiful life ⚠️'},
+    fr:{title:'L\'Echec de la Laicite',desc:'La laicite imposee au monde arabe a echoue a realiser la renaissance promise. Al-Ghazali montre que separer la religion de la vie a cree un vide spirituel et moral rempli par le chaos.',verse:'Et quiconque se detourne de Mon rappel aura une vie miserable',verseRef:'Taha 124',hadith:'Je vous ai laisse ce qui si vous vous y accrochez vous ne vous egarerez jamais : le Livre d\'Allah et ma Sunnah — Malik',action:'Reliez votre vie quotidienne aux valeurs islamiques — la religion n\'est pas que le culte mais un mode de vie',young:'L\'Islam nous enseigne tout ! Pas seulement la priere mais comment vivre une belle vie ⚠️'}
+  },
+  {
+    id:10, emoji:'🤝',
+    ar:{title:'الأخوّة الإسلامية',desc:'الأخوة الإسلامية تتجاوز الحدود والأعراق. حين آخى النبي ﷺ بين المهاجرين والأنصار ضرب أروع مثال للوحدة المبنية على الإيمان لا على النسب.',verse:'وَأَلَّفَ بَيْنَ قُلُوبِهِمْ لَوْ أَنْفَقْتَ مَا فِي الْأَرْضِ جَمِيعًا مَا أَلَّفْتَ بَيْنَ قُلُوبِهِمْ',verseRef:'الأنفال ٦٣',hadith:'لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه — متفق عليه',action:'تواصل اليوم مع مسلم من بلد آخر — ابنِ صداقة تتخطى الحدود',young:'كن صديقاً لكل المسلمين! الإيمان يجعلنا أسرة واحدة كبيرة 🤝'},
+    en:{title:'Islamic Brotherhood',desc:'Islamic brotherhood transcends borders and races. When the Prophet (PBUH) established brotherhood between the Muhajirun and Ansar he set the finest example of unity built on faith, not lineage.',verse:'And He united their hearts — if you had spent all that is on earth you could not have united their hearts',verseRef:'Al-Anfal 63',hadith:'None of you truly believes until he loves for his brother what he loves for himself — Agreed upon',action:'Connect today with a Muslim from another country — build a friendship that crosses borders',young:'Be friends with all Muslims! Faith makes us one big family 🤝'},
+    fr:{title:'La Fraternite Islamique',desc:'La fraternite islamique transcende les frontieres et les races. Quand le Prophete (PSL) a etabli la fraternite entre les Muhajirun et les Ansar il a donne le plus bel exemple d\'unite fondee sur la foi.',verse:'Et Il a uni leurs coeurs — si tu avais depense tout ce qui est sur terre tu n\'aurais pas pu unir leurs coeurs',verseRef:'Al-Anfal 63',hadith:'Aucun de vous ne croit veritablement jusqu\'a ce qu\'il aime pour son frere ce qu\'il aime pour lui-meme — Unanimement reconnu',action:'Connectez-vous aujourd\'hui avec un musulman d\'un autre pays — construisez une amitie qui depasse les frontieres',young:'Sois ami avec tous les musulmans ! La foi fait de nous une grande famille 🤝'}
+  },
+  {
+    id:11, emoji:'🌈',
+    ar:{title:'التنوع في الوحدة',desc:'الإسلام لا يلغي التنوع بل يحتضنه. اختلاف الألوان واللغات آية من آيات الله. الوحدة الإسلامية تحترم الخصوصيات الثقافية وتجمعها تحت مظلة الإيمان.',verse:'وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا إِنَّ أَكْرَمَكُمْ عِنْدَ اللَّهِ أَتْقَاكُمْ',verseRef:'الحجرات ١٣',hadith:'الناس سواسية كأسنان المشط — رواه أحمد',action:'تعرّف على عادات وثقافات مسلمين من بلدان مختلفة — التنوع يثري حياتنا',young:'الألوان المختلفة تجعل قوس القزح جميلاً! تنوّعنا يجعل أمتنا أجمل 🌈'},
+    en:{title:'Diversity in Unity',desc:'Islam does not abolish diversity but embraces it. The difference in colors and languages is a sign of God. Islamic unity respects cultural particularities and gathers them under the umbrella of faith.',verse:'And We made you peoples and tribes that you may know one another — indeed the noblest among you is the most pious',verseRef:'Al-Hujurat 13',hadith:'People are equal like the teeth of a comb — Ahmad',action:'Learn about the customs and cultures of Muslims from different countries — diversity enriches our lives',young:'Different colors make the rainbow beautiful! Our diversity makes our Ummah more beautiful 🌈'},
+    fr:{title:'La Diversite dans l\'Unite',desc:'L\'Islam n\'abolit pas la diversite mais l\'embrasse. La difference de couleurs et de langues est un signe de Dieu. L\'unite islamique respecte les particularites culturelles et les rassemble sous la foi.',verse:'Et Nous avons fait de vous des peuples et des tribus pour que vous vous connaissiez — le plus noble d\'entre vous est le plus pieux',verseRef:'Al-Hujurat 13',hadith:'Les gens sont egaux comme les dents d\'un peigne — Ahmad',action:'Decouvrez les coutumes et cultures de musulmans de differents pays — la diversite enrichit nos vies',young:'Les differentes couleurs rendent l\'arc-en-ciel beau ! Notre diversite rend notre Oumma plus belle 🌈'}
+  },
+  {
+    id:12, emoji:'🇵🇸',
+    ar:{title:'قضية فلسطين',desc:'فلسطين قضية إسلامية قبل أن تكون قومية. الغزالي يؤكد أن اختزالها في إطار قومي عربي أضرّ بها لأنه أقصى مليار مسلم غير عربي عن نصرتها.',verse:'سُبْحَانَ الَّذِي أَسْرَى بِعَبْدِهِ لَيْلًا مِنَ الْمَسْجِدِ الْحَرَامِ إِلَى الْمَسْجِدِ الْأَقْصَى',verseRef:'الإسراء ١',hadith:'لا تُشَدُّ الرحال إلا إلى ثلاثة مساجد — متفق عليه',action:'ادعم قضية فلسطين بالدعاء والتوعية — إنها قضية كل مسلم',young:'المسجد الأقصى لكل المسلمين! كل مسلم في العالم يهتم بفلسطين 🇵🇸'},
+    en:{title:'The Palestine Question',desc:'Palestine is an Islamic cause before being a nationalist one. Al-Ghazali emphasizes that reducing it to an Arab nationalist framework harmed it because it excluded a billion non-Arab Muslims from supporting it.',verse:'Glory be to Him who took His servant by night from the Sacred Mosque to the Farthest Mosque',verseRef:'Al-Isra 1',hadith:'Do not set out on a journey except to three mosques — Agreed upon',action:'Support the Palestinian cause through prayer and awareness — it is the cause of every Muslim',young:'Al-Aqsa Mosque belongs to all Muslims! Every Muslim in the world cares about Palestine 🇵🇸'},
+    fr:{title:'La Question de Palestine',desc:'La Palestine est une cause islamique avant d\'etre nationaliste. Al-Ghazali souligne que la reduire a un cadre nationaliste arabe lui a nui en excluant un milliard de musulmans non arabes de la soutenir.',verse:'Gloire a Celui qui a fait voyager Son serviteur de nuit de la Mosquee Sacree a la Mosquee la plus Eloignee',verseRef:'Al-Isra 1',hadith:'Ne voyagez que vers trois mosquees — Unanimement reconnu',action:'Soutenez la cause palestinienne par la priere et la sensibilisation — c\'est la cause de chaque musulman',young:'La mosquee Al-Aqsa appartient a tous les musulmans ! Chaque musulman dans le monde se soucie de la Palestine 🇵🇸'}
+  },
+  {
+    id:13, emoji:'📡',
+    ar:{title:'الغزو الثقافي',desc:'الغزو الثقافي أخطر من الغزو العسكري لأنه يغير العقول. الغزالي يحذر من تبني قيم غربية عمياء دون تمحيص، ويدعو لبناء ثقافة إسلامية أصيلة ومنفتحة.',verse:'وَلَا تَتَّبِعُوا أَهْوَاءَ قَوْمٍ قَدْ ضَلُّوا مِنْ قَبْلُ',verseRef:'المائدة ٧٧',hadith:'لتتبعن سنن من كان قبلكم شبراً بشبر — متفق عليه',action:'كن واعياً بما تستهلكه ثقافياً — اختر ما يتوافق مع قيمك الإسلامية',young:'لا تقلّد كل شيء تراه! اختر الأشياء الجيدة التي تتوافق مع دينك 📡'},
+    en:{title:'Cultural Imperialism',desc:'Cultural invasion is more dangerous than military invasion because it changes minds. Al-Ghazali warns against blindly adopting Western values and calls for building an authentic yet open Islamic culture.',verse:'And do not follow the desires of a people who went astray before',verseRef:'Al-Ma\'idah 77',hadith:'You will follow the ways of those before you, step by step — Agreed upon',action:'Be aware of what you consume culturally — choose what aligns with your Islamic values',young:'Do not copy everything you see! Choose the good things that align with your faith 📡'},
+    fr:{title:'L\'Imperialisme Culturel',desc:'L\'invasion culturelle est plus dangereuse que l\'invasion militaire car elle change les esprits. Al-Ghazali met en garde contre l\'adoption aveugle des valeurs occidentales et appelle a construire une culture islamique authentique.',verse:'Et ne suivez pas les desirs d\'un peuple qui s\'est egare avant',verseRef:'Al-Ma\'idah 77',hadith:'Vous suivrez les voies de ceux qui vous ont precedes, pas a pas — Unanimement reconnu',action:'Soyez conscient de ce que vous consommez culturellement — choisissez ce qui est conforme a vos valeurs islamiques',young:'Ne copie pas tout ce que tu vois ! Choisis les bonnes choses qui sont conformes a ta foi 📡'}
+  },
+  {
+    id:14, emoji:'🔄',
+    ar:{title:'القومية الجديدة',desc:'ظهرت أشكال جديدة من القومية تحت مسميات مختلفة. الغزالي يحذر من أي فكرة تجعل الانتماء العرقي أو الوطني فوق الانتماء الإسلامي مهما كان اسمها.',verse:'أَفَحُكْمَ الْجَاهِلِيَّةِ يَبْغُونَ وَمَنْ أَحْسَنُ مِنَ اللَّهِ حُكْمًا',verseRef:'المائدة ٥٠',hadith:'دعوها فإنها منتنة — متفق عليه (عن العصبية)',action:'راجع أفكارك: هل تقدّم انتماءك الوطني على انتمائك الإسلامي؟',young:'كن فخوراً ببلدك لكن تذكر أن إسلامك أهم! الدين أولاً 🔄'},
+    en:{title:'Neo-Nationalism',desc:'New forms of nationalism have appeared under different names. Al-Ghazali warns against any idea that places ethnic or national belonging above Islamic belonging regardless of its name.',verse:'Is it the judgment of ignorance they seek? And who is better than Allah in judgment?',verseRef:'Al-Ma\'idah 50',hadith:'Leave it, for it is foul — Agreed upon (about tribalism)',action:'Review your ideas: do you place your national belonging above your Islamic belonging?',young:'Be proud of your country but remember that your Islam is more important! Faith comes first 🔄'},
+    fr:{title:'Le Neo-Nationalisme',desc:'De nouvelles formes de nationalisme sont apparues sous differents noms. Al-Ghazali met en garde contre toute idee qui place l\'appartenance ethnique ou nationale au-dessus de l\'appartenance islamique.',verse:'Est-ce le jugement de l\'ignorance qu\'ils cherchent ? Et qui est meilleur qu\'Allah en jugement ?',verseRef:'Al-Ma\'idah 50',hadith:'Laissez-la car elle est nauseabonde — Unanimement reconnu (a propos du tribalisme)',action:'Revoyez vos idees : placez-vous votre appartenance nationale au-dessus de votre appartenance islamique ?',young:'Sois fier de ton pays mais rappelle-toi que ton Islam est plus important ! La foi d\'abord 🔄'}
+  },
+  {
+    id:15, emoji:'📚',
+    ar:{title:'إصلاح التعليم',desc:'المناهج التعليمية في العالم العربي تعزز القومية على حساب الهوية الإسلامية. الغزالي يدعو لإصلاح التعليم ليبني جيلاً يعرف دينه ويفخر بحضارته الإسلامية.',verse:'اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ',verseRef:'العلق ١',hadith:'من سلك طريقاً يلتمس فيه علماً سهل الله له طريقاً إلى الجنة — رواه مسلم',action:'اقرأ كتاباً عن التاريخ الإسلامي هذا الأسبوع — وسّع معرفتك بحضارتك',young:'تعلّم عن تاريخ المسلمين العظيم! العلماء المسلمون غيّروا العالم 📚'},
+    en:{title:'Education Reform',desc:'Educational curricula in the Arab world promote nationalism at the expense of Islamic identity. Al-Ghazali calls for reforming education to build a generation that knows its religion and takes pride in Islamic civilization.',verse:'Read in the name of your Lord who created',verseRef:'Al-Alaq 1',hadith:'Whoever follows a path seeking knowledge, Allah will make easy for them a path to Paradise — Muslim',action:'Read a book about Islamic history this week — expand your knowledge of your civilization',young:'Learn about the great history of Muslims! Muslim scholars changed the world 📚'},
+    fr:{title:'La Reforme Educative',desc:'Les programmes educatifs dans le monde arabe promeuvent le nationalisme aux depens de l\'identite islamique. Al-Ghazali appelle a reformer l\'education pour construire une generation qui connait sa religion.',verse:'Lis au nom de ton Seigneur qui a cree',verseRef:'Al-Alaq 1',hadith:'Quiconque emprunte un chemin a la recherche du savoir, Allah lui facilitera un chemin vers le Paradis — Muslim',action:'Lisez un livre sur l\'histoire islamique cette semaine — elargissez votre connaissance de votre civilisation',young:'Apprends la grande histoire des musulmans ! Les savants musulmans ont change le monde 📚'}
+  },
+  {
+    id:16, emoji:'📺',
+    ar:{title:'تأثير الإعلام',desc:'الإعلام يلعب دوراً خطيراً في تشكيل الوعي. الغزالي يحذر من إعلام يروّج للقومية والتفرقة، ويدعو لإعلام إسلامي واعٍ يبني الوحدة ويحارب الجهل.',verse:'يَا أَيُّهَا الَّذِينَ آمَنُوا إِنْ جَاءَكُمْ فَاسِقٌ بِنَبَإٍ فَتَبَيَّنُوا',verseRef:'الحجرات ٦',hadith:'كفى بالمرء كذباً أن يحدث بكل ما سمع — رواه مسلم',action:'تحقق من الأخبار قبل مشاركتها — لا تنشر ما يفرّق بين المسلمين',young:'لا تصدق كل ما تسمعه! تأكد من الأخبار قبل أن تخبر الآخرين 📺'},
+    en:{title:'Media Influence',desc:'Media plays a dangerous role in shaping awareness. Al-Ghazali warns against media that promotes nationalism and division, and calls for conscious Islamic media that builds unity and fights ignorance.',verse:'O you who believe, if a wicked person comes to you with news, verify it',verseRef:'Al-Hujurat 6',hadith:'It is enough of a lie for a person to narrate everything they hear — Muslim',action:'Verify news before sharing it — do not spread what divides Muslims',young:'Do not believe everything you hear! Check the news before telling others 📺'},
+    fr:{title:'L\'Influence des Medias',desc:'Les medias jouent un role dangereux dans la formation de la conscience. Al-Ghazali met en garde contre les medias qui promeuvent le nationalisme et la division, et appelle a des medias islamiques conscients.',verse:'O vous qui croyez, si un pervers vous apporte une nouvelle, verifiez-la',verseRef:'Al-Hujurat 6',hadith:'Il suffit comme mensonge pour une personne de raconter tout ce qu\'elle entend — Muslim',action:'Verifiez les nouvelles avant de les partager — ne repandez pas ce qui divise les musulmans',young:'Ne crois pas tout ce que tu entends ! Verifie les nouvelles avant d\'en parler aux autres 📺'}
+  },
+  {
+    id:17, emoji:'🧑‍🎓',
+    ar:{title:'هوية الشباب',desc:'الشباب المسلم يواجه تحديات الهوية بين ثقافة العولمة والانتماء الإسلامي. الغزالي يدعو الشباب لاكتشاف هويتهم الحقيقية في الإسلام لا في القومية أو التقليد الأعمى.',verse:'أَمْ حَسِبْتُمْ أَنْ تَدْخُلُوا الْجَنَّةَ وَلَمَّا يَأْتِكُمْ مَثَلُ الَّذِينَ خَلَوْا مِنْ قَبْلِكُمْ',verseRef:'البقرة ٢١٤',hadith:'اغتنم خمساً قبل خمس: شبابك قبل هرمك — رواه الحاكم',action:'حدد قيمك الإسلامية واكتبها — اجعلها مرجعك في كل قرار',young:'اعرف من أنت! أنت مسلم وهذا أعظم هوية في العالم 🧑‍🎓'},
+    en:{title:'Youth Identity',desc:'Muslim youth face identity challenges between globalization culture and Islamic belonging. Al-Ghazali calls on youth to discover their true identity in Islam, not in nationalism or blind imitation.',verse:'Or do you think you will enter Paradise without being tested as those before you were tested?',verseRef:'Al-Baqarah 214',hadith:'Take advantage of five before five: your youth before your old age — Al-Hakim',action:'Define your Islamic values and write them down — make them your reference in every decision',young:'Know who you are! You are a Muslim and that is the greatest identity in the world 🧑‍🎓'},
+    fr:{title:'L\'Identite des Jeunes',desc:'Les jeunes musulmans font face a des defis identitaires entre la culture de la mondialisation et l\'appartenance islamique. Al-Ghazali appelle les jeunes a decouvrir leur vraie identite dans l\'Islam.',verse:'Ou pensez-vous entrer au Paradis sans etre eprouves comme ceux avant vous ?',verseRef:'Al-Baqarah 214',hadith:'Profitez de cinq avant cinq : votre jeunesse avant votre vieillesse — Al-Hakim',action:'Definissez vos valeurs islamiques et ecrivez-les — faites-en votre reference dans chaque decision',young:'Sache qui tu es ! Tu es musulman et c\'est la plus grande identite au monde 🧑‍🎓'}
+  },
+  {
+    id:18, emoji:'📜',
+    ar:{title:'دروس التاريخ',desc:'التاريخ يعلمنا أن كل مشروع قومي بعيد عن الإسلام مآله الفشل. من القومية المصرية إلى البعث إلى الناصرية، كلها تجارب انتهت بالخيبة لأنها أقصت الإسلام.',verse:'أَفَلَمْ يَسِيرُوا فِي الْأَرْضِ فَيَنْظُرُوا كَيْفَ كَانَ عَاقِبَةُ الَّذِينَ مِنْ قَبْلِهِمْ',verseRef:'محمد ١٠',hadith:'لا يلدغ المؤمن من جحر واحد مرتين — متفق عليه',action:'اقرأ عن تجارب الأمم السابقة — التاريخ أعظم معلم لمن أراد أن يتعلم',young:'التاريخ مليء بالدروس! تعلّم من أخطاء الماضي لتبني مستقبلاً أفضل 📜'},
+    en:{title:'Historical Lessons',desc:'History teaches us that every nationalist project far from Islam is doomed to fail. From Egyptian nationalism to Ba\'athism to Nasserism, all ended in disappointment because they excluded Islam.',verse:'Have they not traveled through the earth and seen the fate of those before them?',verseRef:'Muhammad 10',hadith:'A believer is not stung from the same hole twice — Agreed upon',action:'Read about the experiences of past nations — history is the greatest teacher for those willing to learn',young:'History is full of lessons! Learn from past mistakes to build a better future 📜'},
+    fr:{title:'Les Lecons de l\'Histoire',desc:'L\'histoire nous enseigne que tout projet nationaliste eloigne de l\'Islam est voue a l\'echec. Du nationalisme egyptien au baathisme au nasserisme, tous ont fini par la deception car ils ont exclu l\'Islam.',verse:'N\'ont-ils pas voyage sur terre pour voir le sort de ceux avant eux ?',verseRef:'Muhammad 10',hadith:'Le croyant n\'est pas pique deux fois du meme trou — Unanimement reconnu',action:'Lisez les experiences des nations passees — l\'histoire est le plus grand professeur pour qui veut apprendre',young:'L\'histoire est pleine de lecons ! Apprends des erreurs du passe pour construire un meilleur avenir 📜'}
+  },
+  {
+    id:19, emoji:'🌅',
+    ar:{title:'رؤية المستقبل',desc:'المستقبل للإسلام لا للقومية. الغزالي يرسم رؤية لأمة تجمعها العقيدة وتحترم تنوعها وتتعاون على البر والتقوى. النهضة الحقيقية تبدأ من العودة إلى الله.',verse:'إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّى يُغَيِّرُوا مَا بِأَنْفُسِهِمْ',verseRef:'الرعد ١١',hadith:'بشّروا ولا تنفّروا، ويسّروا ولا تعسّروا — متفق عليه',action:'ساهم في بناء مستقبل أفضل — ابدأ بإصلاح نفسك ثم محيطك',young:'المستقبل مشرق! ابدأ بنفسك وكن التغيير الذي تريد أن تراه 🌅'},
+    en:{title:'Future Vision',desc:'The future belongs to Islam, not nationalism. Al-Ghazali envisions an Ummah united by creed, respectful of its diversity, and cooperating in goodness and piety. True renaissance starts with returning to God.',verse:'Indeed Allah will not change the condition of a people until they change what is within themselves',verseRef:'Ar-Ra\'d 11',hadith:'Give glad tidings and do not repel; make things easy and do not make them difficult — Agreed upon',action:'Contribute to building a better future — start by reforming yourself then your surroundings',young:'The future is bright! Start with yourself and be the change you want to see 🌅'},
+    fr:{title:'La Vision du Futur',desc:'L\'avenir appartient a l\'Islam, pas au nationalisme. Al-Ghazali envisage une Oumma unie par la croyance, respectueuse de sa diversite et cooperant dans le bien et la piete. La vraie renaissance commence par le retour a Dieu.',verse:'Allah ne change pas la condition d\'un peuple tant qu\'ils ne changent pas ce qui est en eux-memes',verseRef:'Ar-Ra\'d 11',hadith:'Annoncez la bonne nouvelle et ne repoussez pas ; facilitez et ne rendez pas les choses difficiles — Unanimement reconnu',action:'Contribuez a construire un meilleur avenir — commencez par vous reformer vous-meme puis votre entourage',young:'L\'avenir est brillant ! Commence par toi-meme et sois le changement que tu veux voir 🌅'}
+  },
+  {
+    id:20, emoji:'🛤️',
+    ar:{title:'خطوات عملية',desc:'الوحدة الإسلامية لا تتحقق بالأماني بل بالعمل. الغزالي يقترح خطوات عملية: إصلاح التعليم، بناء مؤسسات مشتركة، تعزيز التبادل الثقافي، والعودة للقرآن والسنة منهجاً للحياة.',verse:'وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى وَلَا تَعَاوَنُوا عَلَى الْإِثْمِ وَالْعُدْوَانِ',verseRef:'المائدة ٢',hadith:'خير الناس أنفعهم للناس — رواه الطبراني',action:'اختر خطوة عملية واحدة اليوم: تعلّم، تواصل، تعاون مع إخوانك المسلمين',young:'ابدأ اليوم بخطوة صغيرة! تعلّم، ساعد، وتعاون مع الآخرين 🛤️'},
+    en:{title:'Practical Steps',desc:'Islamic unity is not achieved by wishes but by action. Al-Ghazali proposes practical steps: reforming education, building shared institutions, enhancing cultural exchange, and returning to the Quran and Sunnah as a way of life.',verse:'And cooperate in righteousness and piety and do not cooperate in sin and aggression',verseRef:'Al-Ma\'idah 2',hadith:'The best of people are those most beneficial to people — Tabarani',action:'Choose one practical step today: learn, connect, cooperate with your fellow Muslims',young:'Start today with a small step! Learn, help, and cooperate with others 🛤️'},
+    fr:{title:'Les Etapes Pratiques',desc:'L\'unite islamique ne se realise pas par des voeux mais par l\'action. Al-Ghazali propose des etapes pratiques : reformer l\'education, construire des institutions communes, renforcer l\'echange culturel et revenir au Coran et a la Sunnah.',verse:'Et entraidez-vous dans la droiture et la piete et ne vous entraidez pas dans le peche et l\'agression',verseRef:'Al-Ma\'idah 2',hadith:'Les meilleurs des gens sont ceux qui sont les plus utiles aux gens — Tabarani',action:'Choisissez une etape pratique aujourd\'hui : apprenez, connectez-vous, cooperez avec vos freres musulmans',young:'Commence aujourd\'hui par un petit pas ! Apprends, aide et coopere avec les autres 🛤️'}
+  }
 ];
 
-// ═══════════════ CRITIQUE DATA ═══════════════
-const CRITIQUE_DATA = [
-  {emoji:'🚫',
-    ar:{title:'فصل الدين عن الدولة',problem:'البعث تبنّى العلمانية وفصل الدين عن الحياة العامة',solution:'الإسلام نظام شامل للحياة — لا يقبل التجزئة',verse:'أَفَتُؤْمِنُونَ بِبَعْضِ الْكِتَابِ وَتَكْفُرُونَ بِبَعْضٍ',verseRef:'البقرة ٢: ٨٥'},
-    en:{title:'Separation of Religion and State',problem:'Ba\'athism adopted secularism and separated religion from public life',solution:'Islam is a comprehensive system for life — it cannot be fragmented',verse:'Do you believe in part of the Scripture and disbelieve in part?',verseRef:'Al-Baqarah 2:85'},
-    fr:{title:'Separation de la Religion et de l\'Etat',problem:'Le baathisme a adopte la laicite et separe la religion de la vie publique',solution:'L\'Islam est un systeme global pour la vie — il ne peut etre fragmente',verse:'Croyez-vous en une partie du Livre et rejetez-vous le reste ?',verseRef:'Al-Baqara 2:85'}},
-  {emoji:'👑',
-    ar:{title:'عبادة الزعيم',problem:'القومية خلقت عبادة الفرد والزعيم الأوحد',solution:'الإسلام يحرّم تقديس البشر — العبادة لله وحده',verse:'إِنِ الْحُكْمُ إِلَّا لِلَّهِ',verseRef:'يوسف ١٢: ٤٠'},
-    en:{title:'Cult of Personality',problem:'Nationalism created personality cults and strongman worship',solution:'Islam prohibits the deification of humans — worship is for Allah alone',verse:'Judgment is only for Allah',verseRef:'Yusuf 12:40'},
-    fr:{title:'Culte de la Personnalite',problem:'Le nationalisme a cree des cultes de personnalite et l\'adoration du leader',solution:'L\'Islam interdit la deification des humains — l\'adoration est pour Allah seul',verse:'Le jugement n\'appartient qu\'a Allah',verseRef:'Youssouf 12:40'}},
-  {emoji:'🔗',
-    ar:{title:'تبعية فكرية',problem:'القومية العربية استعارت أفكارها من القومية الأوروبية دون نقد',solution:'الإسلام يدعو للاستقلال الفكري والاعتماد على الوحي',verse:'وَلَن تَرْضَىٰ عَنكَ الْيَهُودُ وَلَا النَّصَارَىٰ حَتَّىٰ تَتَّبِعَ مِلَّتَهُمْ',verseRef:'البقرة ٢: ١٢٠'},
-    en:{title:'Intellectual Dependency',problem:'Arab nationalism borrowed its ideas from European nationalism uncritically',solution:'Islam calls for intellectual independence based on revelation',verse:'Never will the Jews or Christians be satisfied with you until you follow their way',verseRef:'Al-Baqarah 2:120'},
-    fr:{title:'Dependance Intellectuelle',problem:'Le nationalisme arabe a emprunte ses idees au nationalisme europeen sans critique',solution:'L\'Islam appelle a l\'independance intellectuelle basee sur la revelation',verse:'Ni les Juifs ni les Chretiens ne seront satisfaits de toi tant que tu ne suivras pas leur voie',verseRef:'Al-Baqara 2:120'}},
-  {emoji:'💸',
-    ar:{title:'وعود كاذبة',problem:'البعث وعد بالرخاء الاقتصادي لكنه أنتج فقراً وفساداً',solution:'الاقتصاد الإسلامي قائم على العدل والزكاة ومحاربة الاحتكار',verse:'كَيْ لَا يَكُونَ دُولَةً بَيْنَ الْأَغْنِيَاءِ مِنكُمْ',verseRef:'الحشر ٥٩: ٧'},
-    en:{title:'False Promises',problem:'Ba\'athism promised economic prosperity but produced poverty and corruption',solution:'Islamic economics is based on justice, zakat, and fighting monopoly',verse:'So that it does not become a perpetual distribution among the rich',verseRef:'Al-Hashr 59:7'},
-    fr:{title:'Fausses Promesses',problem:'Le baathisme a promis la prosperite economique mais a produit pauvrete et corruption',solution:'L\'economie islamique est basee sur la justice, la zakat et la lutte contre le monopole',verse:'Pour que cela ne circule pas uniquement entre les riches parmi vous',verseRef:'Al-Hashr 59:7'}},
-  {emoji:'📰',
-    ar:{title:'تزوير التاريخ',problem:'القومية حاولت كتابة تاريخ عربي بدون إسلام — وهذا تزوير',solution:'التاريخ العربي الحقيقي لا ينفصل عن الإسلام',verse:'تِلْكَ أُمَّةٌ قَدْ خَلَتْ لَهَا مَا كَسَبَتْ وَلَكُم مَّا كَسَبْتُمْ',verseRef:'البقرة ٢: ١٣٤'},
-    en:{title:'Falsifying History',problem:'Nationalism tried to write an Arab history without Islam — this is falsification',solution:'True Arab history is inseparable from Islam',verse:'That was a nation which has passed. They will have what they earned and you will have what you earn',verseRef:'Al-Baqarah 2:134'},
-    fr:{title:'Falsification de l\'Histoire',problem:'Le nationalisme a essaye d\'ecrire une histoire arabe sans Islam — c\'est une falsification',solution:'La vraie histoire arabe est inseparable de l\'Islam',verse:'Voila une communaute qui a vecu. A elle ce qu\'elle a acquis et a vous ce que vous avez acquis',verseRef:'Al-Baqara 2:134'}},
-  {emoji:'🔒',
-    ar:{title:'قمع المعارضة',problem:'الأنظمة القومية قمعت كل صوت معارض باسم الوحدة الوطنية',solution:'الإسلام يكفل الشورى وحرية النصيحة والأمر بالمعروف',verse:'وَأَمْرُهُمْ شُورَىٰ بَيْنَهُمْ',verseRef:'الشورى ٤٢: ٣٨'},
-    en:{title:'Suppression of Dissent',problem:'Nationalist regimes suppressed all opposition in the name of national unity',solution:'Islam guarantees consultation, freedom of advice, and commanding good',verse:'And their affairs are conducted through consultation among themselves',verseRef:'Ash-Shura 42:38'},
-    fr:{title:'Repression de la Dissidence',problem:'Les regimes nationalistes ont reprime toute opposition au nom de l\'unite nationale',solution:'L\'Islam garantit la consultation, la liberte de conseil et l\'ordre du bien',verse:'Et leurs affaires se traitent par consultation entre eux',verseRef:'Ash-Shura 42:38'}},
-  {emoji:'🏳️',
-    ar:{title:'تمزيق الأمة',problem:'القومية قسّمت الأمة الواحدة إلى دويلات متناحرة',solution:'الإسلام يدعو للوحدة: أمة واحدة من دون الناس',verse:'إِنَّ هَٰذِهِ أُمَّتُكُمْ أُمَّةً وَاحِدَةً وَأَنَا رَبُّكُمْ فَاعْبُدُونِ',verseRef:'الأنبياء ٢١: ٩٢'},
-    en:{title:'Tearing the Ummah Apart',problem:'Nationalism divided the one Ummah into rival mini-states',solution:'Islam calls for unity: one nation under God',verse:'Indeed this, your religion, is one religion, and I am your Lord, so worship Me',verseRef:'Al-Anbiya 21:92'},
-    fr:{title:'Dechirement de l\'Oumma',problem:'Le nationalisme a divise l\'Oumma unique en mini-etats rivaux',solution:'L\'Islam appelle a l\'unite: une nation sous Dieu',verse:'Certes, votre religion est une religion unique et Je suis votre Seigneur, adorez-Moi',verseRef:'Al-Anbiya 21:92'}},
-  {emoji:'🎓',
-    ar:{title:'تغريب التعليم',problem:'الأنظمة القومية فرضت مناهج تعليمية غربية تُبعد الشباب عن هويتهم',solution:'التعليم الإسلامي يجمع بين العلم الدنيوي والقيم الإيمانية',verse:'اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ',verseRef:'العلق ٩٦: ١'},
-    en:{title:'Westernizing Education',problem:'Nationalist regimes imposed Western curricula that alienated youth from their identity',solution:'Islamic education combines worldly knowledge with faith-based values',verse:'Read in the name of your Lord who created',verseRef:'Al-Alaq 96:1'},
-    fr:{title:'Occidentalisation de l\'Education',problem:'Les regimes nationalistes ont impose des programmes occidentaux eloignant les jeunes de leur identite',solution:'L\'education islamique combine savoir mondain et valeurs de foi',verse:'Lis au nom de ton Seigneur qui a cree',verseRef:'Al-Alaq 96:1'}},
-  {emoji:'📺',
-    ar:{title:'احتكار الإعلام',problem:'القومية احتكرت الإعلام لنشر دعاية الحزب الواحد',solution:'الإسلام يؤمن بحرية القول والأمر بالمعروف والنهي عن المنكر',verse:'كُنتُمْ خَيْرَ أُمَّةٍ أُخْرِجَتْ لِلنَّاسِ تَأْمُرُونَ بِالْمَعْرُوفِ',verseRef:'آل عمران ٣: ١١٠'},
-    en:{title:'Media Monopoly',problem:'Nationalism monopolized media to spread single-party propaganda',solution:'Islam believes in freedom of speech and commanding good',verse:'You are the best nation produced for mankind, commanding what is right',verseRef:'Aal Imran 3:110'},
-    fr:{title:'Monopole des Medias',problem:'Le nationalisme a monopolise les medias pour diffuser la propagande du parti unique',solution:'L\'Islam croit en la liberte d\'expression et l\'injonction du bien',verse:'Vous etes la meilleure communaute suscitee pour les gens, ordonnant le bien',verseRef:'Aal Imran 3:110'}},
-  {emoji:'🌍',
-    ar:{title:'العزلة عن العالم الإسلامي',problem:'القومية عزلت العرب عن إخوانهم في تركيا وإيران وأفريقيا وآسيا',solution:'الأمة الإسلامية واحدة بغض النظر عن الأعراق والجغرافيا',verse:'وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا',verseRef:'آل عمران ٣: ١٠٣'},
-    en:{title:'Isolation from the Muslim World',problem:'Nationalism isolated Arabs from their brothers in Turkey, Iran, Africa and Asia',solution:'The Muslim Ummah is one regardless of ethnicity and geography',verse:'And hold firmly to the rope of Allah all together and do not become divided',verseRef:'Aal Imran 3:103'},
-    fr:{title:'Isolement du Monde Musulman',problem:'Le nationalisme a isole les Arabes de leurs freres en Turquie, Iran, Afrique et Asie',solution:'La Oumma est une quelle que soit l\'ethnie et la geographie',verse:'Et cramponnez-vous ensemble au cable d\'Allah et ne soyez pas divises',verseRef:'Aal Imran 3:103'}},
-  {emoji:'⚖️',
-    ar:{title:'غياب العدالة الاجتماعية',problem:'الأنظمة القومية أنشأت طبقية جديدة: حزبيون ومهمّشون',solution:'الإسلام يساوي بين الناس: لا فضل لعربي على أعجمي إلا بالتقوى',verse:'إِنَّ أَكْرَمَكُمْ عِندَ اللَّهِ أَتْقَاكُمْ',verseRef:'الحجرات ٤٩: ١٣'},
-    en:{title:'Absence of Social Justice',problem:'Nationalist regimes created new class divisions: party members vs marginalized',solution:'Islam equalizes people: no superiority except through piety',verse:'Indeed, the most noble of you in the sight of Allah is the most righteous',verseRef:'Al-Hujurat 49:13'},
-    fr:{title:'Absence de Justice Sociale',problem:'Les regimes nationalistes ont cree de nouvelles divisions de classe',solution:'L\'Islam egalise les gens: pas de superiorite sauf par la piete',verse:'Le plus noble d\'entre vous aupres d\'Allah est le plus pieux',verseRef:'Al-Hujurat 49:13'}},
-  {emoji:'🔮',
-    ar:{title:'رؤية المستقبل',problem:'القومية لم تقدم رؤية مستقبلية واضحة سوى شعارات جوفاء',solution:'الإسلام يقدم مشروعاً حضارياً شاملاً للدنيا والآخرة',verse:'وَابْتَغِ فِيمَا آتَاكَ اللَّهُ الدَّارَ الْآخِرَةَ وَلَا تَنسَ نَصِيبَكَ مِنَ الدُّنْيَا',verseRef:'القصص ٢٨: ٧٧'},
-    en:{title:'Vision for the Future',problem:'Nationalism offered no clear future vision beyond hollow slogans',solution:'Islam presents a comprehensive civilizational project for this life and the next',verse:'Seek the home of the Hereafter with what Allah has given you, but do not forget your share of this world',verseRef:'Al-Qasas 28:77'},
-    fr:{title:'Vision pour l\'Avenir',problem:'Le nationalisme n\'a offert aucune vision claire au-dela de slogans creux',solution:'L\'Islam presente un projet civilisationnel complet pour cette vie et l\'au-dela',verse:'Recherche la demeure de l\'Au-dela avec ce qu\'Allah t\'a donne, mais n\'oublie pas ta part de ce monde',verseRef:'Al-Qasas 28:77'}}
-];
-
-// ═══════════════ HABITS DATA ═══════════════
-const HABITS = [
-  {emoji:'📖',ar:{label:'قرأت صفحة من كتاب إسلامي',source:'العلم قبل الشعارات'},en:{label:'Read a page from an Islamic book',source:'Knowledge before slogans'},fr:{label:'Lu une page d\'un livre islamique',source:'Le savoir avant les slogans'}},
-  {emoji:'🤝',ar:{label:'تواصلت مع مسلم من ثقافة مختلفة',source:'الأخوة فوق القومية'},en:{label:'Connected with a Muslim from a different culture',source:'Brotherhood above nationalism'},fr:{label:'Communique avec un musulman d\'une autre culture',source:'Fraternite au-dessus du nationalisme'}},
-  {emoji:'🤲',ar:{label:'دعوت للوحدة بين المسلمين',source:'الوحدة على أساس الإسلام'},en:{label:'Prayed for Muslim unity',source:'Unity on Islamic foundations'},fr:{label:'Prie pour l\'unite des musulmans',source:'Unite sur les fondations islamiques'}},
-  {emoji:'🌍',ar:{label:'تعلمت شيئاً عن ثقافة إسلامية أخرى',source:'التنوع في الوحدة'},en:{label:'Learned about another Islamic culture',source:'Diversity in unity'},fr:{label:'Appris sur une autre culture islamique',source:'Diversite dans l\'unite'}},
-  {emoji:'🕌',ar:{label:'صليت الصلوات الخمس في وقتها',source:'العمل قبل الشعارات'},en:{label:'Prayed the five daily prayers on time',source:'Action before slogans'},fr:{label:'Prie les cinq prieres a l\'heure',source:'L\'action avant les slogans'}},
-  {emoji:'📚',ar:{label:'ذكّرت نفسي بأن هويتي الأولى إسلامية',source:'الهوية الحقيقية'},en:{label:'Reminded myself that my primary identity is Islamic',source:'True identity'},fr:{label:'Rappele que mon identite premiere est islamique',source:'La vraie identite'}},
-  {emoji:'🕊️',ar:{label:'عملت على نشر السلام والتسامح',source:'السلام لا العنف'},en:{label:'Worked to spread peace and tolerance',source:'Peace, not violence'},fr:{label:'Travaille a repandre la paix et la tolerance',source:'La paix, pas la violence'}},
-  {emoji:'💪',ar:{label:'قاومت فكرة عصبية أو عنصرية',source:'العصبية الجاهلية'},en:{label:'Resisted a tribalist or racist thought',source:'Pre-Islamic tribalism'},fr:{label:'Resiste a une pensee tribaliste ou raciste',source:'Le tribalisme pre-islamique'}}
-];
-
-// ═══════════════ QUIZ DATA ═══════════════
+// ═══════════════ QUIZ DATA (Who Wants to Be a Scholar?) ═══════════════
 const QUIZ = [
-  {ar:'هل تؤمن بأن الإسلام هو أساس وحدة المسلمين؟',en:'Do you believe Islam is the foundation of Muslim unity?',fr:'Croyez-vous que l\'Islam est le fondement de l\'unite musulmane ?'},
-  {ar:'هل تشعر أحياناً بتعصب لعرقك على حساب دينك؟',en:'Do you sometimes feel ethnic pride over your religious identity?',fr:'Ressentez-vous parfois une fierte ethnique au detriment de votre identite religieuse ?'},
-  {ar:'هل تعتبر المسلم غير العربي أخاً لك بنفس الدرجة؟',en:'Do you consider a non-Arab Muslim your brother equally?',fr:'Considerez-vous un musulman non-arabe comme votre frere egalement ?'},
-  {ar:'هل تعرف لماذا فشلت محاولات الوحدة العلمانية؟',en:'Do you know why secular unity attempts failed?',fr:'Savez-vous pourquoi les tentatives d\'unite laique ont echoue ?'},
-  {ar:'هل تقرأ عن تاريخ الإسلام وإنجازاته؟',en:'Do you read about Islamic history and achievements?',fr:'Lisez-vous sur l\'histoire de l\'Islam et ses realisations ?'},
-  {ar:'هل تؤمن بأن التنوع العرقي نعمة من الله؟',en:'Do you believe ethnic diversity is a blessing from Allah?',fr:'Croyez-vous que la diversite ethnique est une benediction d\'Allah ?'},
-  {ar:'هل تدعو إلى الحوار والسلام بين المسلمين؟',en:'Do you advocate for dialogue and peace among Muslims?',fr:'Plaidez-vous pour le dialogue et la paix entre musulmans ?'},
-  {ar:'هل تفرّق في معاملتك بين المسلمين بسبب جنسياتهم؟',en:'Do you treat Muslims differently based on their nationality?',fr:'Traitez-vous les musulmans differemment selon leur nationalite ?'},
-  {ar:'هل تعرف الفرق بين الانتماء الثقافي والتعصب القومي؟',en:'Do you know the difference between cultural belonging and ethnic fanaticism?',fr:'Connaissez-vous la difference entre appartenance culturelle et fanatisme ethnique ?'},
-  {ar:'هل تؤمن بأن اللغة العربية رابط ثقافي لا عرقي؟',en:'Do you believe Arabic is a cultural bond, not an ethnic one?',fr:'Croyez-vous que l\'arabe est un lien culturel, pas ethnique ?'},
-  {ar:'هل تعلم أن الصحابة كانوا من أعراق مختلفة؟',en:'Do you know the Companions came from diverse ethnicities?',fr:'Savez-vous que les Compagnons venaient de differentes ethnies ?'},
-  {ar:'هل تسعى لبناء جسور مع المسلمين من ثقافات أخرى؟',en:'Do you seek to build bridges with Muslims from other cultures?',fr:'Cherchez-vous a construire des ponts avec les musulmans d\'autres cultures ?'},
-  {ar:'هل تفهم لماذا رفض الإسلام العصبية القبلية؟',en:'Do you understand why Islam rejected tribal fanaticism?',fr:'Comprenez-vous pourquoi l\'Islam a rejete le fanatisme tribal ?'},
-  {ar:'هل تعتقد أن الأمة الإسلامية تحتاج وحدة سياسية أم ثقافية أولاً؟',en:'Do you think the Muslim Ummah needs political or cultural unity first?',fr:'Pensez-vous que la Oumma a besoin d\'unite politique ou culturelle d\'abord ?'},
-  {ar:'هل تستطيع التمييز بين حب الوطن والتعصب الأعمى؟',en:'Can you distinguish between patriotism and blind nationalism?',fr:'Pouvez-vous distinguer entre patriotisme et nationalisme aveugle ?'}
+  {
+    ar:{q:'ما الرابطة التي يعتبرها الإسلام أقوى من رابطة الدم والعرق؟',opts:['رابطة اللغة','رابطة الإيمان','رابطة الأرض','رابطة التجارة'],correct:1,hint:'هذه الرابطة تجمع المسلمين من كل الأعراق',quran:'الحجرات ١٠'},
+    en:{q:'What bond does Islam consider stronger than blood and race?',opts:['Language bond','Bond of faith','Land bond','Trade bond'],correct:1,hint:'This bond unites Muslims of all races',quran:'Al-Hujurat 10'},
+    fr:{q:'Quel lien l\'Islam considere-t-il plus fort que le sang et la race ?',opts:['Le lien de la langue','Le lien de la foi','Le lien de la terre','Le lien du commerce'],correct:1,hint:'Ce lien unit les musulmans de toutes les races',quran:'Al-Hujurat 10'}
+  },
+  {
+    ar:{q:'أكمل الآية: "وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ ..."',opts:['لتتنافسوا','لتتحاربوا','لتعارفوا','لتتفاخروا'],correct:2,hint:'الهدف من التنوع هو التعارف لا التفاخر',quran:'الحجرات ١٣'},
+    en:{q:'Complete the verse: "And We made you peoples and tribes that you may..."',opts:['Compete','Fight','Know one another','Boast'],correct:2,hint:'The purpose of diversity is acquaintance not boasting',quran:'Al-Hujurat 13'},
+    fr:{q:'Completez le verset : « Et Nous avons fait de vous des peuples et des tribus pour que vous... »',opts:['Concouriez','Combattiez','Vous connaissiez','Vous vantiez'],correct:2,hint:'Le but de la diversite est la connaissance mutuelle pas la vantardise',quran:'Al-Hujurat 13'}
+  },
+  {
+    ar:{q:'ما الاتفاقية التي قسمت العالم العربي بعد سقوط الخلافة؟',opts:['اتفاقية جنيف','اتفاقية فرساي','اتفاقية سايكس بيكو','اتفاقية كامب ديفيد'],correct:2,hint:'سميت باسم دبلوماسيين بريطاني وفرنسي',quran:'الأنفال ٤٦'},
+    en:{q:'Which agreement divided the Arab world after the fall of the Caliphate?',opts:['Geneva Convention','Treaty of Versailles','Sykes-Picot Agreement','Camp David Accords'],correct:2,hint:'Named after a British and a French diplomat',quran:'Al-Anfal 46'},
+    fr:{q:'Quel accord a divise le monde arabe apres la chute du califat ?',opts:['Convention de Geneve','Traite de Versailles','Accord Sykes-Picot','Accords de Camp David'],correct:2,hint:'Nomme d\'apres un diplomate britannique et un francais',quran:'Al-Anfal 46'}
+  },
+  {
+    ar:{q:'ما الحديث الذي يرفض العصبية القبلية؟',opts:['المسلم أخو المسلم','ليس منا من دعا إلى عصبية','خيركم خيركم لأهله','الدين النصيحة'],correct:1,hint:'هذا الحديث يتبرأ من دعاة العصبية',quran:'الحجرات ١٣'},
+    en:{q:'Which hadith rejects tribal fanaticism?',opts:['A Muslim is brother of a Muslim','He is not one of us who calls to tribalism','The best of you is the best to his family','Religion is sincere advice'],correct:1,hint:'This hadith disowns those who call for tribalism',quran:'Al-Hujurat 13'},
+    fr:{q:'Quel hadith rejette le fanatisme tribal ?',opts:['Le musulman est frere du musulman','N\'est pas des notres celui qui appelle au tribalisme','Le meilleur d\'entre vous est le meilleur envers sa famille','La religion c\'est le bon conseil'],correct:1,hint:'Ce hadith desavoue ceux qui appellent au tribalisme',quran:'Al-Hujurat 13'}
+  },
+  {
+    ar:{q:'أكمل الحديث: "لا فضل لعربي على أعجمي إلا ب..."',opts:['العلم','المال','التقوى','النسب'],correct:2,hint:'هذا المعيار الوحيد للتفاضل في الإسلام',quran:'الحجرات ١٣'},
+    en:{q:'Complete the hadith: "No Arab has superiority over a non-Arab except by..."',opts:['Knowledge','Wealth','Piety','Lineage'],correct:2,hint:'This is the only criterion for superiority in Islam',quran:'Al-Hujurat 13'},
+    fr:{q:'Completez le hadith : « Aucun Arabe n\'a de superiorite sur un non-Arabe sauf par... »',opts:['Le savoir','La richesse','La piete','La lignee'],correct:2,hint:'C\'est le seul critere de superiorite en Islam',quran:'Al-Hujurat 13'}
+  },
+  {
+    ar:{q:'من هو مؤلف كتاب "حقيقة القومية العربية"؟',opts:['سيد قطب','محمد الغزالي','يوسف القرضاوي','حسن البنا'],correct:1,hint:'عالم مصري لُقب بأديب الدعوة',quran:'الحجرات ١٣'},
+    en:{q:'Who is the author of "The Reality of Arab Nationalism"?',opts:['Sayyid Qutb','Mohammed al-Ghazali','Yusuf al-Qaradawi','Hassan al-Banna'],correct:1,hint:'An Egyptian scholar nicknamed "The Literary Preacher"',quran:'Al-Hujurat 13'},
+    fr:{q:'Qui est l\'auteur de « La Realite du Nationalisme Arabe » ?',opts:['Sayyid Qutb','Mohammed al-Ghazali','Yusuf al-Qaradawi','Hassan al-Banna'],correct:1,hint:'Un savant egyptien surnomme « Le Litteraire de la Predication »',quran:'Al-Hujurat 13'}
+  },
+  {
+    ar:{q:'في أي سورة وردت آية "وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا"؟',opts:['البقرة','آل عمران','النساء','المائدة'],correct:1,hint:'هذه السورة الثالثة في القرآن',quran:'آل عمران ١٠٣'},
+    en:{q:'In which surah does "And hold firmly to the rope of Allah all together" appear?',opts:['Al-Baqarah','Al Imran','An-Nisa','Al-Ma\'idah'],correct:1,hint:'This is the third surah in the Quran',quran:'Al Imran 103'},
+    fr:{q:'Dans quelle sourate apparait « Accrochez-vous tous a la corde d\'Allah » ?',opts:['Al-Baqarah','Al Imran','An-Nisa','Al-Ma\'idah'],correct:1,hint:'C\'est la troisieme sourate du Coran',quran:'Al Imran 103'}
+  },
+  {
+    ar:{q:'ما أول سورة نزلت في القرآن تأمر بالعلم؟',opts:['الفاتحة','البقرة','العلق','الإسراء'],correct:2,hint:'أول كلمة نزلت كانت "اقرأ"',quran:'العلق ١'},
+    en:{q:'What is the first surah revealed commanding knowledge?',opts:['Al-Fatiha','Al-Baqarah','Al-Alaq','Al-Isra'],correct:2,hint:'The first word revealed was "Read"',quran:'Al-Alaq 1'},
+    fr:{q:'Quelle est la premiere sourate revelee ordonnant le savoir ?',opts:['Al-Fatiha','Al-Baqarah','Al-Alaq','Al-Isra'],correct:2,hint:'Le premier mot revele etait « Lis »',quran:'Al-Alaq 1'}
+  },
+  {
+    ar:{q:'أي صحابي يُعتبر مثالاً على أن الإسلام يتجاوز العرق؟',opts:['أبو بكر الصديق','عمر بن الخطاب','بلال بن رباح','عثمان بن عفان'],correct:2,hint:'هذا الصحابي من الحبشة وكان مؤذن الرسول ﷺ',quran:'الحجرات ١٣'},
+    en:{q:'Which companion is an example that Islam transcends race?',opts:['Abu Bakr','Umar ibn al-Khattab','Bilal ibn Rabah','Uthman ibn Affan'],correct:2,hint:'This companion was from Abyssinia and was the Prophet\'s muezzin',quran:'Al-Hujurat 13'},
+    fr:{q:'Quel compagnon est un exemple que l\'Islam transcende la race ?',opts:['Abu Bakr','Umar ibn al-Khattab','Bilal ibn Rabah','Uthman ibn Affan'],correct:2,hint:'Ce compagnon etait d\'Abyssinie et etait le muezzin du Prophete',quran:'Al-Hujurat 13'}
+  },
+  {
+    ar:{q:'ما الآية التي تدعو للتحقق من الأخبار؟',opts:['آية الكرسي','آية التثبت في الحجرات','آية النور','آية الأمانة'],correct:1,hint:'هذه الآية في سورة الحجرات وتأمر بالتبين عند نقل الخبر',quran:'الحجرات ٦'},
+    en:{q:'Which verse calls for verifying news?',opts:['Ayat al-Kursi','The verification verse in Al-Hujurat','The verse of light','The verse of trust'],correct:1,hint:'This verse is in Surah Al-Hujurat and commands verification when hearing news',quran:'Al-Hujurat 6'},
+    fr:{q:'Quel verset appelle a verifier les nouvelles ?',opts:['Ayat al-Kursi','Le verset de verification dans Al-Hujurat','Le verset de la lumiere','Le verset de la confiance'],correct:1,hint:'Ce verset est dans la sourate Al-Hujurat et ordonne la verification des nouvelles',quran:'Al-Hujurat 6'}
+  },
+  {
+    ar:{q:'ما معنى "إن هذه أمتكم أمة واحدة"؟',opts:['المسلمون أمة واحدة','العرب أمة واحدة','البشر أمة واحدة','المؤمنون والكافرون سواء'],correct:0,hint:'الآية تتحدث عن وحدة أمة الإسلام',quran:'الأنبياء ٩٢'},
+    en:{q:'What does "Indeed this Ummah of yours is one Ummah" mean?',opts:['Muslims are one nation','Arabs are one nation','Humans are one nation','Believers and disbelievers are equal'],correct:0,hint:'The verse speaks about the unity of the Muslim Ummah',quran:'Al-Anbiya 92'},
+    fr:{q:'Que signifie « Certes cette Oumma est une Oumma unique » ?',opts:['Les musulmans sont une seule nation','Les Arabes sont une seule nation','Les humains sont une seule nation','Croyants et mecreants sont egaux'],correct:0,hint:'Le verset parle de l\'unite de la Oumma musulmane',quran:'Al-Anbiya 92'}
+  },
+  {
+    ar:{q:'أكمل الآية: "إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّى يُغَيِّرُوا مَا..."',opts:['في أرضهم','بأنفسهم','في أموالهم','بأولادهم'],correct:1,hint:'التغيير يبدأ من الداخل',quran:'الرعد ١١'},
+    en:{q:'Complete: "Allah will not change the condition of a people until they change what is..."',opts:['In their land','Within themselves','In their wealth','With their children'],correct:1,hint:'Change starts from within',quran:'Ar-Ra\'d 11'},
+    fr:{q:'Completez : « Allah ne change pas la condition d\'un peuple tant qu\'ils ne changent pas ce qui est... »',opts:['Dans leur terre','En eux-memes','Dans leurs richesses','Avec leurs enfants'],correct:1,hint:'Le changement commence de l\'interieur',quran:'Ar-Ra\'d 11'}
+  },
+  {
+    ar:{q:'ما الذي يعتبره الغزالي أخطر من الغزو العسكري؟',opts:['الغزو الاقتصادي','الغزو الثقافي','الغزو التكنولوجي','الغزو الزراعي'],correct:1,hint:'هذا النوع يغير العقول والأفكار',quran:'المائدة ٧٧'},
+    en:{q:'What does al-Ghazali consider more dangerous than military invasion?',opts:['Economic invasion','Cultural invasion','Technological invasion','Agricultural invasion'],correct:1,hint:'This type changes minds and ideas',quran:'Al-Ma\'idah 77'},
+    fr:{q:'Qu\'est-ce qu\'al-Ghazali considere plus dangereux que l\'invasion militaire ?',opts:['L\'invasion economique','L\'invasion culturelle','L\'invasion technologique','L\'invasion agricole'],correct:1,hint:'Ce type change les esprits et les idees',quran:'Al-Ma\'idah 77'}
+  },
+  {
+    ar:{q:'ماذا فعل النبي ﷺ ليوحّد بين المهاجرين والأنصار؟',opts:['بنى سوقاً مشتركاً','آخى بينهم','أعطاهم أموالاً','فرض عليهم ضريبة'],correct:1,hint:'جعل كل مهاجري أخاً لأنصاري',quran:'الأنفال ٦٣'},
+    en:{q:'What did the Prophet (PBUH) do to unite the Muhajirun and Ansar?',opts:['Built a shared market','Established brotherhood','Gave them money','Imposed a tax'],correct:1,hint:'He paired each Muhajir with an Ansari as brothers',quran:'Al-Anfal 63'},
+    fr:{q:'Qu\'a fait le Prophete (PSL) pour unir les Muhajirun et les Ansar ?',opts:['Construit un marche commun','Etabli la fraternite','Leur a donne de l\'argent','Impose une taxe'],correct:1,hint:'Il a apparie chaque Muhajir avec un Ansari comme freres',quran:'Al-Anfal 63'}
+  },
+  {
+    ar:{q:'أكمل الآية: "وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى وَلَا تَعَاوَنُوا عَلَى..."',opts:['الشر والعدوان','الإثم والعدوان','الكفر والفسوق','الظلم والبغي'],correct:1,hint:'هذه الآية في سورة المائدة',quran:'المائدة ٢'},
+    en:{q:'Complete: "Cooperate in righteousness and piety and do not cooperate in..."',opts:['Evil and aggression','Sin and aggression','Disbelief and wickedness','Oppression and transgression'],correct:1,hint:'This verse is in Surah Al-Ma\'idah',quran:'Al-Ma\'idah 2'},
+    fr:{q:'Completez : « Entraidez-vous dans la droiture et la piete et ne vous entraidez pas dans... »',opts:['Le mal et l\'agression','Le peche et l\'agression','La mecreance et la perversite','L\'oppression et la transgression'],correct:1,hint:'Ce verset est dans la sourate Al-Ma\'idah',quran:'Al-Ma\'idah 2'}
+  }
 ];
 
 // ═══════════════ DUAS DATA ═══════════════
 const DUAS = [
-  {ar:{label:'دعاء الوحدة',text:'اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِنَا وَأَصْلِحْ ذَاتَ بَيْنِنَا',tr:'O Allah, unite our hearts and reconcile between us'},en:{label:'Dua for Unity',text:'اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِنَا وَأَصْلِحْ ذَاتَ بَيْنِنَا',tr:'O Allah, unite our hearts and reconcile between us'},fr:{label:'Dua pour l\'Unite',text:'اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِنَا وَأَصْلِحْ ذَاتَ بَيْنِنَا',tr:'O Allah, unis nos coeurs et reconcilie-nous'}},
-  {ar:{label:'دعاء الأخوة',text:'اللَّهُمَّ اجْعَلْنَا إِخْوَانًا مُتَحَابِّينَ فِي اللَّهِ',tr:'O Allah, make us brothers who love each other for Your sake'},en:{label:'Dua for Brotherhood',text:'اللَّهُمَّ اجْعَلْنَا إِخْوَانًا مُتَحَابِّينَ فِي اللَّهِ',tr:'O Allah, make us brothers who love each other for Your sake'},fr:{label:'Dua pour la Fraternite',text:'اللَّهُمَّ اجْعَلْنَا إِخْوَانًا مُتَحَابِّينَ فِي اللَّهِ',tr:'O Allah, fais de nous des freres qui s\'aiment pour Toi'}},
-  {ar:{label:'دعاء الهداية',text:'رَبَّنَا اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ',tr:'Our Lord, guide us to the straight path'},en:{label:'Dua for Guidance',text:'رَبَّنَا اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ',tr:'Our Lord, guide us to the straight path'},fr:{label:'Dua pour la Guidance',text:'رَبَّنَا اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ',tr:'Notre Seigneur, guide-nous vers le droit chemin'}},
-  {ar:{label:'دعاء نصرة الأمة',text:'اللَّهُمَّ انْصُرِ الْإِسْلَامَ وَالْمُسْلِمِينَ وَوَحِّدْ صُفُوفَهُمْ',tr:'O Allah, grant victory to Islam and Muslims and unite their ranks'},en:{label:'Dua for the Ummah',text:'اللَّهُمَّ انْصُرِ الْإِسْلَامَ وَالْمُسْلِمِينَ وَوَحِّدْ صُفُوفَهُمْ',tr:'O Allah, grant victory to Islam and Muslims and unite their ranks'},fr:{label:'Dua pour l\'Oumma',text:'اللَّهُمَّ انْصُرِ الْإِسْلَامَ وَالْمُسْلِمِينَ وَوَحِّدْ صُفُوفَهُمْ',tr:'O Allah, accorde la victoire a l\'Islam et aux musulmans et unis leurs rangs'}},
-  {ar:{label:'دعاء العلم النافع',text:'اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَعَمَلًا مُتَقَبَّلًا',tr:'O Allah, I ask You for beneficial knowledge and accepted deeds'},en:{label:'Dua for Beneficial Knowledge',text:'اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَعَمَلًا مُتَقَبَّلًا',tr:'O Allah, I ask You for beneficial knowledge and accepted deeds'},fr:{label:'Dua pour le Savoir Benefique',text:'اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَعَمَلًا مُتَقَبَّلًا',tr:'O Allah, je Te demande un savoir benefique et des actes acceptes'}},
-  {ar:{label:'دعاء التوفيق',text:'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي',tr:'My Lord, expand my chest and ease my affair'},en:{label:'Dua for Success',text:'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي',tr:'My Lord, expand my chest and ease my affair'},fr:{label:'Dua pour la Reussite',text:'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي',tr:'Mon Seigneur, ouvre-moi ma poitrine et facilite mon affaire'}}
+  { ar:{label:'دعاء الوحدة',text:'اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِنَا وَأَصْلِحْ ذَاتَ بَيْنِنَا وَاهْدِنَا سُبُلَ السَّلَامِ',tr:'من دعاء النبي ﷺ'},
+    en:{label:'Dua for Unity',text:'اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِنَا وَأَصْلِحْ ذَاتَ بَيْنِنَا وَاهْدِنَا سُبُلَ السَّلَامِ',tr:'O Allah, unite our hearts and reconcile between us and guide us to the paths of peace'},
+    fr:{label:'Dua pour l\'Unite',text:'اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِنَا وَأَصْلِحْ ذَاتَ بَيْنِنَا وَاهْدِنَا سُبُلَ السَّلَامِ',tr:'O Allah, unis nos coeurs et reconcilie-nous et guide-nous vers les chemins de la paix'} },
+  { ar:{label:'دعاء الأخوّة',text:'رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ وَلَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِلَّذِينَ آمَنُوا',tr:'الحشر ١٠'},
+    en:{label:'Dua for Brotherhood',text:'رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ وَلَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِلَّذِينَ آمَنُوا',tr:'Our Lord, forgive us and our brothers who preceded us in faith and do not place in our hearts any resentment — Al-Hashr 10'},
+    fr:{label:'Dua pour la Fraternite',text:'رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ وَلَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِلَّذِينَ آمَنُوا',tr:'Notre Seigneur, pardonne-nous ainsi qu\'a nos freres qui nous ont precedes dans la foi — Al-Hashr 10'} },
+  { ar:{label:'دعاء النصر',text:'رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ',tr:'البقرة ٢٥٠'},
+    en:{label:'Dua for Victory',text:'رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ',tr:'Our Lord, pour upon us patience and plant firmly our feet and grant us victory — Al-Baqarah 250'},
+    fr:{label:'Dua pour la Victoire',text:'رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ',tr:'Notre Seigneur, deverse sur nous la patience et affermis nos pas et accorde-nous la victoire — Al-Baqarah 250'} },
+  { ar:{label:'دعاء التوكل',text:'حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ',tr:'التوبة ١٢٩'},
+    en:{label:'Dua of Trust',text:'حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ',tr:'Allah is sufficient for me; there is no god except Him. I rely on Him — At-Tawbah 129'},
+    fr:{label:'Dua de Confiance',text:'حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ',tr:'Allah me suffit ; il n\'y a de dieu que Lui. Je m\'en remets a Lui — At-Tawbah 129'} },
+  { ar:{label:'دعاء العلم',text:'رَبِّ زِدْنِي عِلْمًا',tr:'طه ١١٤'},
+    en:{label:'Dua for Knowledge',text:'رَبِّ زِدْنِي عِلْمًا',tr:'My Lord, increase me in knowledge — Taha 114'},
+    fr:{label:'Dua pour le Savoir',text:'رَبِّ زِدْنِي عِلْمًا',tr:'Mon Seigneur, augmente-moi en savoir — Taha 114'} },
+  { ar:{label:'دعاء الهداية',text:'اللَّهُمَّ أَرِنَا الْحَقَّ حَقًّا وَارْزُقْنَا اتِّبَاعَهُ وَأَرِنَا الْبَاطِلَ بَاطِلًا وَارْزُقْنَا اجْتِنَابَهُ',tr:'من دعاء السلف'},
+    en:{label:'Dua for Guidance',text:'اللَّهُمَّ أَرِنَا الْحَقَّ حَقًّا وَارْزُقْنَا اتِّبَاعَهُ وَأَرِنَا الْبَاطِلَ بَاطِلًا وَارْزُقْنَا اجْتِنَابَهُ',tr:'O Allah, show us the truth as truth and grant us to follow it, and show us falsehood as falsehood and grant us to avoid it'},
+    fr:{label:'Dua pour la Guidance',text:'اللَّهُمَّ أَرِنَا الْحَقَّ حَقًّا وَارْزُقْنَا اتِّبَاعَهُ وَأَرِنَا الْبَاطِلَ بَاطِلًا وَارْزُقْنَا اجْتِنَابَهُ',tr:'O Allah, montre-nous la verite comme verite et accorde-nous de la suivre, et montre-nous le faux comme faux et accorde-nous de l\'eviter'} },
+  { ar:{label:'دعاء حسن الخلق',text:'اللَّهُمَّ اهْدِنِي لِأَحْسَنِ الأَخْلاقِ لا يَهْدِي لِأَحْسَنِهَا إِلَّا أَنْتَ',tr:'رواه مسلم'},
+    en:{label:'Dua for Good Character',text:'اللَّهُمَّ اهْدِنِي لِأَحْسَنِ الأَخْلاقِ لا يَهْدِي لِأَحْسَنِهَا إِلَّا أَنْتَ',tr:'O Allah, guide me to the best of character, none can guide to it except You — Muslim'},
+    fr:{label:'Dua pour le Bon Caractere',text:'اللَّهُمَّ اهْدِنِي لِأَحْسَنِ الأَخْلاقِ لا يَهْدِي لِأَحْسَنِهَا إِلَّا أَنْتَ',tr:'O Allah, guide-moi vers le meilleur caractere, nul ne peut y guider sauf Toi — Muslim'} },
+  { ar:{label:'دعاء الثبات',text:'رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً',tr:'آل عمران ٨'},
+    en:{label:'Dua for Steadfastness',text:'رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً',tr:'Our Lord, do not let our hearts deviate after You have guided us and grant us mercy — Al Imran 8'},
+    fr:{label:'Dua pour la Fermete',text:'رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً',tr:'Notre Seigneur, ne fais pas devier nos coeurs apres nous avoir guides et accorde-nous une misericorde — Al Imran 8'} }
 ];
 
-// ═══════════════ STATE ═══════════════
-let lang = localStorage.getItem('hq-lang') || 'ar';
-let theme = localStorage.getItem('hq-theme') || 'steel';
-const themes = ['steel','night','iron'];
-const themeIcons = ['🏛️','🌙','⚔️'];
-const themeNames = {steel:'Steel / فولاذي',night:'Night / ليلي',iron:'Iron / حديدي'};
-let currentCardIdx = -1;
+// ═══════════════ XP / BADGE SYSTEM ═══════════════
+const XP_KEY = 'qawmiyah-xp';
+const BADGES_KEY = 'qawmiyah-badges';
+const READ_KEY = 'qawmiyah-read';
+const STREAK_KEY = 'qawmiyah-streak';
+const MODE_KEY = 'qawmiyah-mode';
+const QUIZ_BEST_KEY = 'qawmiyah-quiz-best';
 
-// ═══════════════ INIT ═══════════════
-document.addEventListener('DOMContentLoaded', () => {
-  setTheme(theme);
-  setLang(lang);
-  initTabs();
-  initSplash();
-  initScrollTop();
-  renderHome();
-  renderCards();
-  renderCritique();
-  renderHabits();
-  renderQuiz();
-  renderAbout();
-  renderHelp();
-  renderDuas();
-  initScrollReveal();
-  initKeyboardNav();
-});
+const BADGE_DEFS = [
+  { id:'beginner', emoji:'🌱', xp:0, ar:'مبتدئ', en:'Beginner', fr:'Debutant' },
+  { id:'reader', emoji:'📖', xp:100, ar:'قارئ', en:'Reader', fr:'Lecteur' },
+  { id:'scholar', emoji:'🎓', xp:300, ar:'عالم', en:'Scholar', fr:'Savant' },
+  { id:'persistent', emoji:'🔥', xp:500, ar:'مثابر', en:'Persistent', fr:'Perseverant' },
+  { id:'expert', emoji:'🏆', xp:1000, ar:'خبير', en:'Expert', fr:'Expert' }
+];
 
-// ═══════════════ SPLASH ═══════════════
-function initSplash() {
-  let count = 5;
-  const el = document.getElementById('splashCount');
-  const featuresEl = document.getElementById('splashFeatures');
-  if (featuresEl) {
-    featuresEl.innerHTML = T[lang].splashFeatures.map((f, i) =>
-      `<div class="splash-feature" style="animation-delay:${0.3 + i * 0.3}s">${f}</div>`
-    ).join('');
-  }
-  const interval = setInterval(() => {
-    count--;
-    if (el) el.textContent = count;
-    if (count <= 0) { dismissSplash(); clearInterval(interval); }
-  }, 1000);
+function getXP() { return parseInt(localStorage.getItem(XP_KEY) || '0'); }
+function addXP(pts) {
+  const xp = getXP() + pts;
+  localStorage.setItem(XP_KEY, xp);
+  checkBadges(xp);
+  updateXPDisplay();
+  return xp;
 }
-function dismissSplash() {
-  const s = document.getElementById('splash');
-  if (s) { s.classList.add('hidden'); setTimeout(() => s.style.display = 'none', 500); }
-  playSound('click');
+function getLevel(xp) {
+  if (xp >= 1000) return 5;
+  if (xp >= 500) return 4;
+  if (xp >= 300) return 3;
+  if (xp >= 100) return 2;
+  return 1;
 }
-
-// ═══════════════ LANGUAGE ═══════════════
-function setLang(l) {
-  lang = l;
-  localStorage.setItem('hq-lang', l);
-  const isRTL = l === 'ar';
-  document.documentElement.lang = l;
-  document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
-  document.body.dir = isRTL ? 'rtl' : 'ltr';
-  document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
-  const t = T[l];
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  set('appTitle', t.appTitle); set('splashSub', t.splashSub); set('splashHint', t.splashHint);
-  set('tabHome', t.tabHome); set('tabCards', t.tabCards); set('tabCritique', t.tabCritique);
-  set('tabHabits', t.tabHabits); set('tabQuiz', t.tabQuiz); set('tabAbout', t.tabAbout);
-  set('cardsTitle', t.cardsTitle); set('cardsDesc', t.cardsDesc);
-  set('critiqueTitle', t.critiqueTitle); set('critiqueDesc', t.critiqueDesc);
-  set('habitsTitle', t.habitsTitle); set('habitsDesc', t.habitsDesc);
-  set('quizTitle', t.quizTitle); set('quizDesc', t.quizDesc);
-  set('helpTitle', t.helpTitle); set('duaPanelTitle', t.duaPanelTitle);
-  set('habitsReset', t.resetBtn);
-  renderHome(); renderCards(); renderCritique(); renderHabits(); renderQuiz(); renderAbout(); renderHelp(); renderDuas();
-  const featuresEl = document.getElementById('splashFeatures');
-  if (featuresEl) {
-    featuresEl.innerHTML = T[l].splashFeatures.map((f, i) =>
-      `<div class="splash-feature" style="animation-delay:${0.3 + i * 0.3}s">${f}</div>`
-    ).join('');
+function getEarnedBadges() { return JSON.parse(localStorage.getItem(BADGES_KEY) || '[]'); }
+function checkBadges(xp) {
+  const earned = getEarnedBadges();
+  BADGE_DEFS.forEach(b => {
+    if (xp >= b.xp && !earned.includes(b.id)) {
+      earned.push(b.id);
+      localStorage.setItem(BADGES_KEY, JSON.stringify(earned));
+      showToast(`${b.emoji} ${b[lang]}!`);
+      playSound('success');
+    }
+  });
+}
+function getReadTraits() { return JSON.parse(localStorage.getItem(READ_KEY) || '[]'); }
+function markTraitRead(id) {
+  const read = getReadTraits();
+  if (!read.includes(id)) {
+    read.push(id);
+    localStorage.setItem(READ_KEY, JSON.stringify(read));
+    addXP(10);
   }
 }
 
-// ═══════════════ THEME ═══════════════
-function setTheme(t) {
-  theme = t;
-  document.documentElement.dataset.theme = t;
-  localStorage.setItem('hq-theme', t);
-  const idx = themes.indexOf(t);
-  const el = document.getElementById('themeIcon');
-  if (el) el.textContent = themeIcons[idx];
+// ═══════════════ STREAK ═══════════════
+function getStreak() { return JSON.parse(localStorage.getItem(STREAK_KEY) || '{"count":0,"lastDate":""}'); }
+function updateStreak() {
+  const today = new Date().toDateString();
+  const s = getStreak();
+  if (s.lastDate === today) return s.count;
+  const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
+  if (s.lastDate === yesterday.toDateString()) { s.count++; } else if (s.lastDate !== today) { s.count = 1; }
+  s.lastDate = today;
+  localStorage.setItem(STREAK_KEY, JSON.stringify(s));
+  return s.count;
 }
-function cycleTheme() {
-  const idx = (themes.indexOf(theme) + 1) % themes.length;
-  setTheme(themes[idx]);
-  showToast(themeNames[themes[idx]]);
+
+// ═══════════════ AGE MODE ═══════════════
+let ageMode = localStorage.getItem(MODE_KEY) || 'teen';
+function toggleAgeMode() {
+  ageMode = ageMode === 'young' ? 'teen' : 'young';
+  localStorage.setItem(MODE_KEY, ageMode);
+  document.body.classList.toggle('young-mode', ageMode === 'young');
+  renderAll();
+  showToast(ageMode === 'young' ? T[lang].youngMode : T[lang].teenMode);
   playSound('theme');
 }
 
-// ═══════════════ TABS ═══════════════
-function initTabs() {
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      const panel = document.getElementById('panel-' + tab.dataset.tab);
-      if (panel) panel.classList.add('active');
-      window.scrollTo({top: 0, behavior: 'smooth'});
-      playSound('click');
-    });
-  });
+// ═══════════════ LANGUAGE & THEME ═══════════════
+let lang = document.documentElement.lang || 'ar';
+let currentTheme = document.documentElement.dataset.theme || 'nature';
+const THEMES = ['nature','night','ocean'];
+const THEME_ICONS = { nature:'🌿', night:'🌙', ocean:'🌊' };
+let currentPrincipleIdx = -1;
+
+function setLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+  renderAll();
+}
+
+function cycleTheme() {
+  const idx = (THEMES.indexOf(currentTheme) + 1) % THEMES.length;
+  currentTheme = THEMES[idx];
+  document.documentElement.dataset.theme = currentTheme;
+  document.getElementById('themeIcon').textContent = THEME_ICONS[currentTheme];
+  playSound('theme');
+}
+
+// ═══════════════ RENDER ALL ═══════════════
+function renderAll() {
+  const t = T[lang];
+  document.getElementById('appTitle').textContent = t.appTitle;
+  document.getElementById('splashSub').textContent = t.splashSub;
+  document.getElementById('splashHint').textContent = t.splashHint;
+  document.getElementById('tabHome').textContent = t.tabHome;
+  document.getElementById('tabTraits').textContent = t.tabTraits;
+  document.getElementById('tabQuiz').textContent = t.tabQuiz;
+  document.getElementById('tabProgress').textContent = t.tabProgress;
+  document.getElementById('tabAbout').textContent = t.tabAbout;
+  document.getElementById('traitsTitle').textContent = t.traitsTitle;
+  document.getElementById('traitsDesc').textContent = t.traitsDesc;
+  document.getElementById('quizTitle').textContent = t.quizTitle;
+  document.getElementById('quizDesc').textContent = t.quizDesc;
+  document.getElementById('progressTitle').textContent = t.progressTitle;
+  document.getElementById('progressDesc').textContent = t.progressDesc;
+  document.getElementById('helpTitle').textContent = t.helpTitle;
+  document.getElementById('duaPanelTitle').textContent = t.duaPanelTitle;
+  document.getElementById('ageModeBtn').textContent = ageMode === 'young' ? t.youngMode : t.teenMode;
+  // Render sections
+  renderHome();
+  renderTraits();
+  renderProgress();
+  renderAbout();
+  renderHelp();
+  renderDuas();
+  renderTicker();
 }
 
 // ═══════════════ RENDER: HOME ═══════════════
 function renderHome() {
   const t = T[lang];
-  const dayIdx = new Date().getDate() % CARDS.length;
-  const c = CARDS[dayIdx];
-  const cd = c[lang];
+  const dayIdx = new Date().getDate() % TRAITS.length;
+  const trait = TRAITS[dayIdx];
+  const d = trait[lang];
   document.getElementById('dailyCard').innerHTML = `
     <div class="daily-label">${t.dailyLabel}</div>
-    <div class="daily-title">${cd.title}</div>
-    <div class="daily-body">${cd.desc}</div>
-    <div class="daily-action" onclick="document.querySelector('[data-tab=cards]').click()">${t.tabCards} &#8594;</div>
-  `;
-  const sections = [
-    {icon:'🃏',tab:'cards',title:t.tabCards,desc:lang==='ar'?'٢٠ بطاقة معرفية':lang==='fr'?'20 cartes de savoir':'20 knowledge cards'},
-    {icon:'⚖️',tab:'critique',title:t.tabCritique,desc:lang==='ar'?'نقد الفكر القومي':lang==='fr'?'Critique du nationalisme':'Critique of nationalism'},
-    {icon:'📋',tab:'habits',title:t.tabHabits,desc:lang==='ar'?'تتبع يومي':lang==='fr'?'Suivi quotidien':'Daily tracking'},
-    {icon:'🤔',tab:'quiz',title:t.tabQuiz,desc:lang==='ar'?'اختبر نفسك':lang==='fr'?'Testez-vous':'Test yourself'},
-    {icon:'📖',tab:'about',title:t.tabAbout,desc:lang==='ar'?'عن الكتاب والمؤلف':lang==='fr'?'Le livre et l\'auteur':'Book & author'},
-  ];
-  document.getElementById('homeGrid').innerHTML = sections.map(s => `
-    <div class="home-card" onclick="document.querySelector('[data-tab=${s.tab}]').click()">
-      <span class="hc-icon">${s.icon}</span>
-      <div class="hc-title">${s.title}</div>
-      <div class="hc-desc">${s.desc}</div>
-    </div>
-  `).join('');
+    <div class="daily-title">${trait.emoji} ${d.title}</div>
+    <div class="daily-body">${ageMode === 'young' ? d.young : d.desc}</div>
+    <div class="daily-action" onclick="switchTab('traits');toggleCard('trait-${trait.id}')">${t.readMore} &#8594;</div>`;
+  // Grid
+  document.getElementById('homeGrid').innerHTML = TRAITS.map(tr => {
+    const dd = tr[lang];
+    return `<div class="home-card" onclick="switchTab('traits');toggleCard('trait-${tr.id}')">
+      <span class="hc-icon">${tr.emoji}</span>
+      <div class="hc-title">${dd.title}</div>
+    </div>`;
+  }).join('');
 }
 
-// ═══════════════ RENDER: CARDS ═══════════════
-function renderCards() {
+// ═══════════════ RENDER: TRAITS ═══════════════
+function renderTraits() {
   const t = T[lang];
-  const searchBar = `<div class="search-bar"><input type="text" id="cardsSearch" class="search-input" placeholder="${t.searchPlaceholder}" oninput="filterCards(this.value)"><span class="search-icon">🔍</span></div>`;
-  const cards = CARDS.map((c, i) => {
-    const d = c[lang];
+  const readTraits = getReadTraits();
+  const container = document.getElementById('traitsContainer');
+  // Search bar
+  const searchHTML = `<div class="search-bar"><span class="search-icon">🔍</span><input class="search-input" id="traitsSearch" placeholder="${t.searchPlaceholder}" oninput="filterTraits(this.value)"></div>`;
+  container.innerHTML = searchHTML + TRAITS.map(tr => {
+    const d = tr[lang];
+    const isRead = readTraits.includes(tr.id);
     return `
-    <div class="principle-card scroll-reveal" id="card-${c.id}" data-search="${d.title.toLowerCase()}">
-      <div class="principle-head" onclick="toggleCard('card-${c.id}')">
-        <span class="principle-num">${c.id}</span>
-        <span class="principle-emoji">${c.emoji}</span>
-        <span class="principle-title">${d.title}</span>
-        <span class="principle-chev">&#9660;</span>
+    <div class="trait-card scroll-reveal ${isRead ? 'read' : ''}" id="trait-${tr.id}">
+      <div class="trait-head" onclick="toggleCard('trait-${tr.id}');markTraitRead(${tr.id})">
+        <span class="trait-num">${tr.id}</span>
+        <span class="trait-emoji">${tr.emoji}</span>
+        <span class="trait-title">${d.title}</span>
+        ${isRead ? '<span class="trait-read-badge">&#10003;</span>' : ''}
+        <span class="trait-chev">&#9660;</span>
       </div>
-      <div class="principle-body">
-        <div class="principle-inner">
-          <p class="principle-desc">${d.desc}</p>
+      <div class="trait-body">
+        <div class="trait-inner">
+          <div class="trait-desc">${ageMode === 'young' ? d.young : d.desc}</div>
+          <div class="verse-box">
+            <div class="verse-arabic">${d.verse}</div>
+            <div class="verse-ref">${d.verseRef}</div>
+          </div>
+          <div class="hadith-box">
+            <span class="hadith-label">📜 ${t.hadith}</span>
+            <div class="hadith-text">${d.hadith}</div>
+          </div>
           <div class="action-box">
             <span class="action-icon">💡</span>
-            <span>${d.idea}</span>
+            <span>${d.action}</span>
           </div>
-          <div class="comparison-box">
-            <div class="comparison-side ghazali-side">
-              <div class="comp-label">${t.islamicView}</div>
-              <div class="comp-text">${d.islamic}</div>
-            </div>
-          </div>
-          <div class="verse-box">
-            <div class="verse-ref">${d.evidence}</div>
-          </div>
-          <button class="share-btn" onclick="event.stopPropagation();shareCard(${i})">
-            <span class="share-icon">&#128279;</span> ${t.share}
-          </button>
+          <button class="share-btn" onclick="shareTrait(${tr.id})"><span class="share-icon">📤</span> ${t.share}</button>
         </div>
       </div>
     </div>`;
   }).join('');
-  document.getElementById('cardsContainer').innerHTML = searchBar + cards;
 }
 
-function filterCards(query) {
-  const q = query.toLowerCase().trim();
-  document.querySelectorAll('.principle-card').forEach(card => {
-    const searchText = card.dataset.search || '';
-    const title = card.querySelector('.principle-title');
-    const titleText = title ? title.textContent.toLowerCase() : '';
-    const match = !q || searchText.includes(q) || titleText.includes(q);
-    card.style.display = match ? '' : 'none';
+function filterTraits(query) {
+  const cards = document.querySelectorAll('.trait-card');
+  const q = query.toLowerCase();
+  cards.forEach(card => {
+    const title = card.querySelector('.trait-title').textContent.toLowerCase();
+    const desc = card.querySelector('.trait-desc') ? card.querySelector('.trait-desc').textContent.toLowerCase() : '';
+    card.style.display = (!q || title.includes(q) || desc.includes(q)) ? '' : 'none';
   });
 }
 
-async function shareCard(idx) {
-  const c = CARDS[idx];
-  const d = c[lang];
-  const text = `${c.emoji} ${d.title}\n\n${d.desc}\n\n💡 ${d.idea}\n\n— حقيقة القومية العربية`;
-  if (navigator.share) {
-    try { await navigator.share({ title: d.title, text }); } catch(e) {}
-  } else {
-    try { await navigator.clipboard.writeText(text); showToast(lang === 'ar' ? 'تم النسخ!' : lang === 'fr' ? 'Copie !' : 'Copied!'); } catch(e) { showToast('Could not copy'); }
-  }
+function shareTrait(id) {
+  const trait = TRAITS.find(t => t.id === id);
+  if (!trait) return;
+  const d = trait[lang];
+  const text = `${trait.emoji} ${d.title}\n${d.desc}\n\n${d.verse} — ${d.verseRef}`;
+  if (navigator.share) { navigator.share({ title: d.title, text }); }
+  else { navigator.clipboard.writeText(text).then(() => showToast(lang==='ar'?'تم النسخ':'Copied!')); }
 }
 
-// ═══════════════ RENDER: CRITIQUE ═══════════════
-function renderCritique() {
+// ═══════════════ RENDER: QUIZ (Who Wants to Be a Scholar?) ═══════════════
+let quizState = { current: 0, score: 0, answers: [], lifelines: { fifty: true, hint: true, quran: true }, active: false };
+
+function renderQuiz() {
+  quizState = { current: 0, score: 0, answers: [], lifelines: { fifty: true, hint: true, quran: true }, active: true };
+  showQuizQuestion();
+}
+
+function showQuizQuestion() {
   const t = T[lang];
-  document.getElementById('critiqueContainer').innerHTML = CRITIQUE_DATA.map(a => {
-    const d = a[lang];
-    return `
-    <div class="anxiety-card scroll-reveal">
-      <div class="anxiety-header">
-        <span class="anxiety-emoji">${a.emoji}</span>
-        <span class="anxiety-title">${d.title}</span>
-      </div>
-      <div class="anxiety-problem">
-        <span class="anxiety-label">${lang==='ar'?'🚫 المشكلة':lang==='fr'?'🚫 Le Probleme':'🚫 The Problem'}</span>
-        ${d.problem}
-      </div>
-      <div class="anxiety-solution">
-        <span class="anxiety-label">${lang==='ar'?'☪️ الحل الإسلامي':lang==='fr'?'☪️ La Solution Islamique':'☪️ The Islamic Solution'}</span>
-        ${d.solution}
-      </div>
-      <div class="verse-box">
-        <div class="verse-arabic">${d.verse}</div>
-        <div class="verse-ref">${d.verseRef}</div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-// ═══════════════ RENDER: HABITS ═══════════════
-function renderHabits() {
-  const today = new Date().toDateString();
-  let habitsState = JSON.parse(localStorage.getItem('hq-habits') || '{}');
-  if (habitsState.date !== today) {
-    updateStreak(habitsState);
-    habitsState = { date: today, done: [] };
-    localStorage.setItem('hq-habits', JSON.stringify(habitsState));
+  const container = document.getElementById('quizContainer');
+  const result = document.getElementById('quizResult');
+  result.classList.add('hidden');
+  if (quizState.current >= QUIZ.length) {
+    showQuizResult();
+    return;
   }
-  const streak = getStreak();
-  const streakHTML = streak > 0 ? `<div class="streak-badge">🔥 ${streak} ${T[lang].streakMsg}</div>` : '';
-  document.getElementById('habitsContainer').innerHTML = HABITS.map((h, i) => {
-    const d = h[lang];
-    const isDone = habitsState.done.includes(i);
-    return `
-    <div class="habit-item ${isDone ? 'done' : ''}" onclick="toggleHabit(${i})">
-      <span class="habit-check">${isDone ? '&#10003;' : ''}</span>
-      <span class="habit-emoji">${h.emoji}</span>
-      <div>
-        <div class="habit-label">${d.label}</div>
-        <div class="habit-source">${d.source}</div>
+  const q = QUIZ[quizState.current][lang];
+  const total = QUIZ.length;
+  const num = quizState.current + 1;
+  container.innerHTML = `
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${num/total*100}%"></div></div>
+    <div class="quiz-counter">${num} / ${total}</div>
+    <div class="quiz-question-card scroll-reveal">
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-options" id="quizOpts">
+        ${q.opts.map((opt, i) => `<button class="quiz-opt" id="qopt-${i}" onclick="answerQuiz(${i})">${opt}</button>`).join('')}
+      </div>
+      <div class="quiz-lifelines">
+        <button class="lifeline-btn ${quizState.lifelines.fifty?'':'used'}" onclick="useFiftyFifty()" ${quizState.lifelines.fifty?'':'disabled'}>${t.lifeline5050}</button>
+        <button class="lifeline-btn ${quizState.lifelines.hint?'':'used'}" onclick="useHint()" ${quizState.lifelines.hint?'':'disabled'}>${t.lifelineHint}</button>
+        <button class="lifeline-btn ${quizState.lifelines.quran?'':'used'}" onclick="useQuranRef()" ${quizState.lifelines.quran?'':'disabled'}>${t.lifelineQuran}</button>
+      </div>
+      <div id="quizFeedback" class="quiz-feedback hidden"></div>
+    </div>`;
+}
+
+function answerQuiz(idx) {
+  if (!quizState.active) return;
+  const q = QUIZ[quizState.current][lang];
+  const correct = q.correct;
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach((o, i) => {
+    o.disabled = true;
+    if (i === correct) o.classList.add('correct');
+    if (i === idx && i !== correct) o.classList.add('wrong');
+  });
+  const feedback = document.getElementById('quizFeedback');
+  feedback.classList.remove('hidden');
+  if (idx === correct) {
+    quizState.score++;
+    addXP(5);
+    feedback.innerHTML = `<span class="fb-correct">${T[lang].correct}</span>`;
+    playSound('success');
+  } else {
+    feedback.innerHTML = `<span class="fb-wrong">${T[lang].wrong}</span>`;
+    playSound('click');
+  }
+  quizState.answers.push(idx);
+  quizState.current++;
+  setTimeout(() => showQuizQuestion(), 1800);
+}
+
+function useFiftyFifty() {
+  if (!quizState.lifelines.fifty) return;
+  quizState.lifelines.fifty = false;
+  const q = QUIZ[quizState.current][lang];
+  const correct = q.correct;
+  const wrongIdxs = [0,1,2,3].filter(i => i !== correct);
+  const toHide = wrongIdxs.sort(() => Math.random() - 0.5).slice(0, 2);
+  toHide.forEach(i => { const el = document.getElementById('qopt-'+i); if(el) { el.style.visibility='hidden'; el.disabled=true; }});
+  document.querySelector('.lifeline-btn').classList.add('used');
+  playSound('click');
+}
+
+function useHint() {
+  if (!quizState.lifelines.hint) return;
+  quizState.lifelines.hint = false;
+  const q = QUIZ[quizState.current][lang];
+  const feedback = document.getElementById('quizFeedback');
+  feedback.classList.remove('hidden');
+  feedback.innerHTML = `<span class="fb-hint">💡 ${q.hint}</span>`;
+  playSound('click');
+}
+
+function useQuranRef() {
+  if (!quizState.lifelines.quran) return;
+  quizState.lifelines.quran = false;
+  const q = QUIZ[quizState.current][lang];
+  const feedback = document.getElementById('quizFeedback');
+  feedback.classList.remove('hidden');
+  feedback.innerHTML = `<span class="fb-quran">📖 ${q.quran}</span>`;
+  playSound('click');
+}
+
+function showQuizResult() {
+  const t = T[lang];
+  const total = QUIZ.length;
+  const pct = Math.round(quizState.score / total * 100);
+  // Save best score
+  const best = parseInt(localStorage.getItem(QUIZ_BEST_KEY) || '0');
+  if (pct > best) localStorage.setItem(QUIZ_BEST_KEY, pct);
+  addXP(20); // bonus for completing
+  let emoji, title;
+  if (pct >= 80) { emoji = '🏆'; title = lang==='ar'?'عالم حقيقي!':lang==='fr'?'Un vrai savant !':'A True Scholar!'; }
+  else if (pct >= 50) { emoji = '📖'; title = lang==='ar'?'جيد جداً!':lang==='fr'?'Tres bien !':'Very Good!'; }
+  else { emoji = '🌱'; title = lang==='ar'?'واصل التعلم!':lang==='fr'?'Continue d\'apprendre !':'Keep Learning!'; }
+  document.getElementById('quizContainer').innerHTML = '';
+  const result = document.getElementById('quizResult');
+  result.classList.remove('hidden');
+  result.innerHTML = `
+    <div class="qr-emoji">${emoji}</div>
+    <div class="qr-score">${quizState.score}/${total}</div>
+    <div class="qr-title">${title}</div>
+    <div class="qr-desc">${pct}%</div>
+    <button class="quiz-submit" onclick="renderQuiz()">${t.tryAgain}</button>`;
+  result.scrollIntoView({ behavior: 'smooth' });
+  if (pct >= 80) launchConfetti();
+  quizState.active = false;
+}
+
+// ═══════════════ RENDER: PROGRESS ═══════════════
+function renderProgress() {
+  const t = T[lang];
+  const xp = getXP();
+  const level = getLevel(xp);
+  const streak = getStreak().count;
+  const readTraits = getReadTraits();
+  const earned = getEarnedBadges();
+  const bestQuiz = parseInt(localStorage.getItem(QUIZ_BEST_KEY) || '0');
+  const nextBadge = BADGE_DEFS.find(b => !earned.includes(b.id));
+  const nextXP = nextBadge ? nextBadge.xp : 1000;
+  const progressPct = Math.min(100, (xp / nextXP) * 100);
+
+  document.getElementById('progressContainer').innerHTML = `
+    <div class="progress-xp-card">
+      <div class="xp-header">
+        <span class="xp-icon">⭐</span>
+        <span class="xp-amount">${xp} ${t.xpLabel}</span>
+      </div>
+      <div class="xp-bar-wrap">
+        <div class="xp-bar"><div class="xp-bar-fill" style="width:${progressPct}%"></div></div>
+        <span class="xp-level">${t.levelLabel} ${level}</span>
+      </div>
+      ${nextBadge ? `<div class="xp-next">${lang==='ar'?'التالي:':lang==='fr'?'Suivant:':'Next:'} ${nextBadge.emoji} ${nextBadge[lang]} (${nextBadge.xp} XP)</div>` : ''}
+    </div>
+    ${streak > 0 ? `<div class="streak-badge">🔥 ${streak} ${t.streakMsg}</div>` : ''}
+    <div class="progress-stats">
+      <div class="stat-card"><span class="stat-num">${readTraits.length}</span><span class="stat-label">${lang==='ar'?'محور مقروء':lang==='fr'?'Themes lus':'Topics Read'}</span><span class="stat-total">/ ${TRAITS.length}</span></div>
+      <div class="stat-card"><span class="stat-num">${bestQuiz}%</span><span class="stat-label">${lang==='ar'?'أفضل نتيجة':lang==='fr'?'Meilleur score':'Best Quiz'}</span></div>
+      <div class="stat-card"><span class="stat-num">${earned.length}</span><span class="stat-label">${lang==='ar'?'شارات':lang==='fr'?'Badges':'Badges'}</span><span class="stat-total">/ ${BADGE_DEFS.length}</span></div>
+    </div>
+    <div class="badges-section">
+      <h3 class="badges-title">${lang==='ar'?'🏅 الشارات':lang==='fr'?'🏅 Badges':'🏅 Badges'}</h3>
+      <div class="badges-grid">
+        ${BADGE_DEFS.map(b => `<div class="badge-item ${earned.includes(b.id)?'earned':'locked'}"><span class="badge-emoji">${b.emoji}</span><span class="badge-name">${b[lang]}</span><span class="badge-xp">${b.xp} XP</span></div>`).join('')}
       </div>
     </div>`;
+}
+
+function updateXPDisplay() {
+  // Quick update if progress panel is visible
+  const panel = document.getElementById('panel-progress');
+  if (panel && panel.classList.contains('active')) renderProgress();
+}
+
+// ═══════════════ RENDER: ABOUT ═══════════════
+function renderAbout() {
+  const about = {
+    ar: {
+      disclaimerTitle: '⚠️ تنبيه مهم',
+      disclaimer: 'لست عالماً ولا مفتياً. هذا جهد متواضع من مسلم يحب كتب الشيخ الغزالي. المحتوى مستمد من الكتاب ومصادر إسلامية موثوقة. ليست فتوى.',
+      authorName: 'الشيخ محمد الغزالي',
+      authorDates: '١٩١٧ — ١٩٩٦',
+      authorBio: 'عالم ومفكر إسلامي مصري، لُقب بـ"أديب الدعوة". ألّف أكثر من ٩٤ كتاباً. درس في الأزهر، ودرّس في جامعة الأمير عبد القادر بقسنطينة (الجزائر). حاصل على جائزة الملك فيصل. عُرف بالتجديد ومحاربة الجمود والتشدد.',
+      bookTitle: 'عن الكتاب',
+      bookDesc: '«حقيقة القومية العربية وأسطورة البعث العربي» كتاب يتناول قضية الهوية والقومية في العالم العربي. يبيّن الشيخ الغزالي كيف أن القومية العربية كانت مشروعاً استعمارياً لتفريق المسلمين، وأن الوحدة الحقيقية لا تقوم إلا على أساس الإسلام.',
+      sourcesTitle: 'المصادر',
+      sources: ['كتاب "حقيقة القومية العربية" — الشيخ محمد الغزالي','القرآن الكريم','صحيح البخاري ومسلم','سنن الترمذي وأبي داود ومسند أحمد'],
+      contact: 'تواصل: abdelhak.bourdim@gmail.com'
+    },
+    en: {
+      disclaimerTitle: '⚠️ Important Notice',
+      disclaimer: 'I am not a scholar or mufti. This is a humble effort by a Muslim who loves Sheikh al-Ghazali\'s books. Content is derived from the book and trusted Islamic sources. This is not a fatwa.',
+      authorName: 'Sheikh Mohammed al-Ghazali',
+      authorDates: '1917 — 1996',
+      authorBio: 'Egyptian Islamic scholar and thinker, nicknamed "The Literary Preacher." Author of 94+ books. Studied at Al-Azhar, taught at the University of Emir Abdelkader in Constantine, Algeria. King Faisal Award winner. Known for renewal and fighting rigidity.',
+      bookTitle: 'About the Book',
+      bookDesc: '"The Reality of Arab Nationalism and the Myth of Arab Ba\'athism" examines the question of identity and nationalism in the Arab world. Sheikh al-Ghazali demonstrates how Arab nationalism was a colonial project to divide Muslims, and that true unity can only be based on Islam.',
+      sourcesTitle: 'Sources',
+      sources: ['"The Reality of Arab Nationalism" — Sheikh Mohammed al-Ghazali','The Holy Quran','Sahih al-Bukhari and Muslim','Sunan at-Tirmidhi, Abu Dawud, and Musnad Ahmad'],
+      contact: 'Contact: abdelhak.bourdim@gmail.com'
+    },
+    fr: {
+      disclaimerTitle: '⚠️ Avis Important',
+      disclaimer: 'Je ne suis ni savant ni mufti. C\'est un effort humble d\'un musulman qui aime les livres du Sheikh al-Ghazali. Le contenu est tire du livre et de sources islamiques fiables. Ce n\'est pas une fatwa.',
+      authorName: 'Sheikh Mohammed al-Ghazali',
+      authorDates: '1917 — 1996',
+      authorBio: 'Savant et penseur islamique egyptien, surnomme "Le Litteraire de la Predication". Auteur de plus de 94 livres. Diplome d\'Al-Azhar, professeur a l\'Universite Emir Abdelkader de Constantine (Algerie). Laureat du Prix Roi Faysal.',
+      bookTitle: 'A Propos du Livre',
+      bookDesc: '« La Realite du Nationalisme Arabe et le Mythe du Baath Arabe » examine la question de l\'identite et du nationalisme dans le monde arabe. Le Sheikh al-Ghazali demontre comment le nationalisme arabe etait un projet colonial pour diviser les musulmans.',
+      sourcesTitle: 'Sources',
+      sources: ['"La Realite du Nationalisme Arabe" — Sheikh Mohammed al-Ghazali','Le Saint Coran','Sahih al-Bukhari et Muslim','Sunan at-Tirmidhi, Abu Dawud et Musnad Ahmad'],
+      contact: 'Contact : abdelhak.bourdim@gmail.com'
+    }
+  };
+  const a = about[lang];
+  document.getElementById('aboutContainer').innerHTML = `
+    <div class="about-disclaimer">
+      <div class="about-disclaimer-title">${a.disclaimerTitle}</div>
+      <p>${a.disclaimer}</p>
+    </div>
+    <div class="about-author">
+      <span class="about-author-icon">📚</span>
+      <div class="about-author-info">
+        <div class="about-author-name">${a.authorName}</div>
+        <div class="about-author-dates">${a.authorDates}</div>
+        <div class="about-author-bio">${a.authorBio}</div>
+      </div>
+    </div>
+    <div class="about-section">
+      <div class="about-section-title">${a.bookTitle}</div>
+      <p class="about-text">${a.bookDesc}</p>
+    </div>
+    <div class="about-section">
+      <div class="about-section-title">${a.sourcesTitle}</div>
+      ${a.sources.map(s => `<p class="about-text">&#8226; ${s}</p>`).join('')}
+    </div>
+    <div class="about-section">
+      <p class="about-text">${a.contact}</p>
+    </div>`;
+}
+
+// ═══════════════ RENDER: HELP ═══════════════
+function renderHelp() {
+  const help = {
+    ar: [
+      {title:'⚠️ تنبيه',body:'لست عالماً. هذا جهد متواضع لنشر حكمة الشيخ الغزالي بطريقة تفاعلية.'},
+      {title:'📚 المصادر',body:'كتاب "حقيقة القومية العربية" للشيخ محمد الغزالي، القرآن الكريم، السنة النبوية.'},
+      {title:'✨ المميزات',body:'ثلاث لغات (عربي/إنجليزي/فرنسي)، ٣ أنماط، ٢٠ محور، مسابقة تفاعلية، نظام نقاط وشارات، وضعان للأعمار.'},
+      {title:'🌟 وضع مستكشف صغير',body:'للأطفال ٧-١٢ سنة — نصوص مبسطة بالإيموجي، خط أكبر.'},
+      {title:'📖 وضع باحث شاب',body:'للشباب ١٣+ — نصوص كاملة مع آيات وأحاديث وتحليل.'},
+      {title:'🤝 المساهمة',body:'GitHub: github.com/abourdim/haqiqat-al-qawmiyah'},
+    ],
+    en: [
+      {title:'⚠️ Disclaimer',body:'I am not a scholar. This is a humble effort to share Sheikh al-Ghazali\'s wisdom interactively.'},
+      {title:'📚 Sources',body:'"The Reality of Arab Nationalism" by Sheikh Mohammed al-Ghazali, the Holy Quran, Prophetic Sunnah.'},
+      {title:'✨ Features',body:'Three languages (AR/EN/FR), 3 themes, 20 topics, interactive quiz, XP and badges system, 2 age modes.'},
+      {title:'🌟 Young Explorer',body:'For kids 7-12 — simplified text with emojis, larger font.'},
+      {title:'📖 Teen Scholar',body:'For teens 13+ — full text with verses, hadiths, and analysis.'},
+      {title:'🤝 Contributing',body:'GitHub: github.com/abourdim/haqiqat-al-qawmiyah'},
+    ],
+    fr: [
+      {title:'⚠️ Avertissement',body:'Je ne suis pas un savant. C\'est un effort humble pour partager la sagesse du Sheikh al-Ghazali.'},
+      {title:'📚 Sources',body:'"La Realite du Nationalisme Arabe" par Sheikh Mohammed al-Ghazali, le Saint Coran, la Sunnah.'},
+      {title:'✨ Fonctionnalites',body:'Trois langues (AR/EN/FR), 3 themes, 20 themes, quiz interactif, systeme XP et badges, 2 modes d\'age.'},
+      {title:'🌟 Jeune Explorateur',body:'Pour enfants 7-12 ans — texte simplifie avec emojis, police plus grande.'},
+      {title:'📖 Jeune Chercheur',body:'Pour ados 13+ — texte complet avec versets, hadiths et analyse.'},
+      {title:'🤝 Contribuer',body:'GitHub : github.com/abourdim/haqiqat-al-qawmiyah'},
+    ]
+  };
+  document.getElementById('helpBody').innerHTML = help[lang].map(h => `
+    <div class="help-item">
+      <div class="help-item-title">${h.title}</div>
+      <div>${h.body}</div>
+    </div>`).join('');
+}
+
+// ═══════════════ RENDER: DUAS ═══════════════
+function renderDuas() {
+  document.getElementById('duaPanelContent').innerHTML = DUAS.map(d => {
+    const dd = d[lang];
+    return `<div class="dua-item">
+      <div class="dua-item-label">${dd.label}</div>
+      <div class="dua-item-ar">${dd.text}</div>
+      <div class="dua-item-tr">${dd.tr}</div>
+    </div>`;
   }).join('');
-  const streakEl = document.getElementById('streakBadge');
-  if (streakEl) streakEl.innerHTML = streakHTML;
-  updateHabitsProgress(habitsState);
 }
 
-function toggleHabit(i) {
-  const today = new Date().toDateString();
-  let hs = JSON.parse(localStorage.getItem('hq-habits') || '{}');
-  if (hs.date !== today) hs = { date: today, done: [] };
-  const idx = hs.done.indexOf(i);
-  if (idx > -1) hs.done.splice(idx, 1); else hs.done.push(i);
-  localStorage.setItem('hq-habits', JSON.stringify(hs));
-  renderHabits();
-  playSound(idx > -1 ? 'click' : 'success');
-  if (hs.done.length === HABITS.length) { launchConfetti(); showToast(T[lang].allDone); }
+// ═══════════════ TICKER ═══════════════
+function renderTicker() {
+  const tips = {
+    ar: ['📖 اقرأ محوراً جديداً كل يوم','🏆 اجمع النقاط واربح الشارات','🌟 جرب وضع المستكشف الصغير','🤲 لا تنسَ الدعاء بالوحدة','⭐ أكمل ٢٠ محوراً لتصبح خبيراً'],
+    en: ['📖 Read a new topic every day','🏆 Collect points and earn badges','🌟 Try Young Explorer mode','🤲 Don\'t forget to make dua for unity','⭐ Complete all 20 topics to become an Expert'],
+    fr: ['📖 Lisez un nouveau theme chaque jour','🏆 Collectez des points et gagnez des badges','🌟 Essayez le mode Jeune Explorateur','🤲 N\'oubliez pas les duas pour l\'unite','⭐ Completez les 20 themes pour devenir Expert']
+  };
+  const items = tips[lang];
+  const doubled = [...items, ...items];
+  const ticker = document.getElementById('tickerText');
+  ticker.innerHTML = doubled.map(t => `<span class="tc">&nbsp;&nbsp;${t}&nbsp;&nbsp;•</span>`).join('');
+  ticker.style.animation = `tickerMarquee ${items.length * 6}s linear infinite`;
 }
 
-function resetHabits() {
-  localStorage.setItem('hq-habits', JSON.stringify({ date: new Date().toDateString(), done: [] }));
-  renderHabits();
-  showToast(lang === 'ar' ? 'تم إعادة التعيين' : lang === 'fr' ? 'Reinitialise' : 'Reset');
+// ═══════════════ SPLASH SCREEN ═══════════════
+let splashTimer;
+function initSplash() {
+  const features = document.getElementById('splashFeatures');
+  if (features) {
+    features.innerHTML = T[lang].splashFeatures.map((f, i) =>
+      `<div class="splash-feature" style="animation-delay:${0.3+i*0.3}s">${f}</div>`
+    ).join('');
+  }
+  let count = 5;
+  const counter = document.getElementById('splashCount');
+  splashTimer = setInterval(() => {
+    count--;
+    if (counter) counter.textContent = count;
+    if (count <= 0) dismissSplash();
+  }, 1000);
+}
+function dismissSplash() {
+  clearInterval(splashTimer);
+  const splash = document.getElementById('splash');
+  if (splash) { splash.classList.add('hidden'); setTimeout(() => splash.remove(), 600); }
 }
 
-function updateHabitsProgress(hs) {
-  const done = hs.done.length;
-  const total = HABITS.length;
-  const pct = total > 0 ? (done / total * 100) : 0;
-  const fill = document.getElementById('habitsFill');
-  const txt = document.getElementById('habitsText');
-  if (fill) fill.style.width = pct + '%';
-  if (txt) txt.textContent = `${done}/${total}`;
+// ═══════════════ TAB SWITCHING ═══════════════
+function initTabs() {
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const name = tab.dataset.tab;
+      switchTab(name);
+    });
+  });
+}
+function switchTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('panel-' + name);
+  const tabBtn = document.querySelector(`.tab[data-tab="${name}"]`);
+  if (panel) panel.classList.add('active');
+  if (tabBtn) tabBtn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  playSound('click');
+  // Re-init scroll reveal
+  setTimeout(() => {
+    document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => {
+      if (window._scrollObserver) window._scrollObserver.observe(el);
+    });
+    initTypewriter();
+  }, 100);
 }
 
-function updateStreak(prevState) {
-  let streakData = JSON.parse(localStorage.getItem('hq-streak') || '{"count":0,"lastDate":""}');
-  if (prevState && prevState.done && prevState.done.length === HABITS.length && prevState.date) {
-    const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
-    if (prevState.date === yesterday.toDateString()) { streakData.count++; }
-    else if (prevState.date !== new Date().toDateString()) { streakData.count = prevState.done.length === HABITS.length ? 1 : 0; }
-    streakData.lastDate = prevState.date;
-  } else if (prevState && prevState.date) { streakData.count = 0; streakData.lastDate = prevState.date; }
-  localStorage.setItem('hq-streak', JSON.stringify(streakData));
+// ═══════════════ SCROLL REVEAL ═══════════════
+function initScrollReveal() {
+  if (!('IntersectionObserver' in window)) return;
+  window._scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        window._scrollObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => window._scrollObserver.observe(el));
 }
 
-function getStreak() {
-  return JSON.parse(localStorage.getItem('hq-streak') || '{"count":0}').count;
+// ═══════════════ KEYBOARD NAVIGATION ═══════════════
+function initKeyboardNav() {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const hp = document.getElementById('helpPanel');
+      if (!hp.classList.contains('hidden')) { toggleHelp(); return; }
+      const dp = document.getElementById('duaPanel');
+      if (!dp.classList.contains('hidden')) { toggleDuaPanel(); return; }
+      document.querySelectorAll('.trait-card.open').forEach(c => c.classList.remove('open'));
+    }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      const panel = document.getElementById('panel-traits');
+      if (!panel || !panel.classList.contains('active')) return;
+      if (document.activeElement && document.activeElement.id === 'traitsSearch') return;
+      e.preventDefault();
+      const cards = Array.from(document.querySelectorAll('.trait-card')).filter(c => c.style.display !== 'none');
+      if (!cards.length) return;
+      if (currentPrincipleIdx >= 0 && currentPrincipleIdx < cards.length) cards[currentPrincipleIdx].classList.remove('open');
+      const dir = document.documentElement.dir === 'rtl' ? (e.key==='ArrowRight'?-1:1) : (e.key==='ArrowRight'?1:-1);
+      currentPrincipleIdx = Math.max(0, Math.min(cards.length-1, currentPrincipleIdx+dir));
+      cards[currentPrincipleIdx].classList.add('open');
+      cards[currentPrincipleIdx].scrollIntoView({ behavior:'smooth', block:'center' });
+      playSound('click');
+    }
+  });
+}
+
+// ═══════════════ UTILITIES ═══════════════
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  if (card) { card.classList.toggle('open'); playSound('click'); }
+}
+function toggleHelp() { document.getElementById('helpPanel').classList.toggle('hidden'); playSound('click'); }
+function toggleDuaPanel() { document.getElementById('duaPanel').classList.toggle('hidden'); playSound('click'); }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  const m = document.getElementById('toastMsg');
+  if (t && m) { m.textContent = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2500); }
+}
+function initScrollTop() {
+  const btn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 300); });
+}
+
+// ═══════════════ SOUND EFFECTS ═══════════════
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx;
+function playSound(type) {
+  try {
+    if (!audioCtx) audioCtx = new AudioCtx();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    gain.gain.value = 0.06;
+    if (type==='click') { osc.frequency.value=800; osc.type='sine'; gain.gain.value=0.04; }
+    else if (type==='success') { osc.frequency.value=523; osc.type='sine'; gain.gain.value=0.06; }
+    else if (type==='theme') { osc.frequency.value=440; osc.type='triangle'; gain.gain.value=0.05; }
+    osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+  } catch(e) {}
 }
 
 // ═══════════════ CONFETTI ═══════════════
@@ -596,13 +1018,13 @@ function launchConfetti() {
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth; canvas.height = window.innerHeight;
   const particles = [];
-  const colors = ['#37474F','#546E7A','#78909C','#B0BEC5','#E8A040','#66BB6A','#4FC3F7'];
+  const colors = ['#2E7D32','#4CAF50','#81C784','#A5D6A7','#FFD54F','#FF8A65','#4FC3F7'];
   for (let i = 0; i < 120; i++) {
-    particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height-canvas.height,w:Math.random()*10+5,h:Math.random()*6+3,color:colors[Math.floor(Math.random()*colors.length)],vx:(Math.random()-0.5)*4,vy:Math.random()*3+2,rot:Math.random()*360,rotSpeed:(Math.random()-0.5)*10});
+    particles.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height-canvas.height, w:Math.random()*10+5, h:Math.random()*6+3, color:colors[Math.floor(Math.random()*colors.length)], vx:(Math.random()-0.5)*4, vy:Math.random()*3+2, rot:Math.random()*360, rotSpeed:(Math.random()-0.5)*10 });
   }
   let frame = 0;
   function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     particles.forEach(p => { p.x+=p.vx; p.y+=p.vy; p.rot+=p.rotSpeed; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180); ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore(); });
     frame++;
     if (frame < 120) requestAnimationFrame(draw);
@@ -611,194 +1033,54 @@ function launchConfetti() {
   draw();
 }
 
-// ═══════════════ RENDER: QUIZ ═══════════════
-function renderQuiz() {
-  const t = T[lang];
-  const container = document.getElementById('quizContainer');
-  container.innerHTML = QUIZ.map((q, i) => `
-    <div class="quiz-question scroll-reveal" id="quiz-q-${i}">
-      <div class="quiz-q-text">${i+1}. ${q[lang]}</div>
-      <div class="quiz-options">
-        <button class="quiz-opt" onclick="selectQuizOpt(${i},2)">${t.yes}</button>
-        <button class="quiz-opt" onclick="selectQuizOpt(${i},1)">${t.sometimes}</button>
-        <button class="quiz-opt" onclick="selectQuizOpt(${i},0)">${t.no}</button>
-      </div>
-    </div>
-  `).join('') + `<button class="quiz-submit" onclick="submitQuiz()">${t.submitQuiz}</button>`;
-  document.getElementById('quizResult').classList.add('hidden');
-  window._quizAnswers = {};
-}
-
-function selectQuizOpt(qi, val) {
-  window._quizAnswers[qi] = val;
-  document.querySelectorAll(`#quiz-q-${qi} .quiz-opt`).forEach((o, oi) => {
-    o.classList.toggle('selected', [2,1,0][oi] === val);
-  });
-  playSound('click');
-}
-
-function submitQuiz() {
-  const answers = window._quizAnswers || {};
-  if (Object.keys(answers).length < QUIZ.length) {
-    showToast(lang==='ar'?'أجب على جميع الأسئلة':lang==='fr'?'Repondez a toutes les questions':'Answer all questions');
-    return;
+// ═══════════════ TYPEWRITER ═══════════════
+function initTypewriter() {
+  const dailyTitle = document.querySelector('.daily-card .daily-title');
+  if (!dailyTitle || dailyTitle.dataset.twDone) return;
+  const fullText = dailyTitle.textContent;
+  dailyTitle.textContent = '';
+  dailyTitle.classList.add('typewriter-text');
+  dailyTitle.dataset.twDone = '1';
+  let i = 0;
+  const speed = Math.max(30, 2000 / fullText.length);
+  function typeChar() {
+    if (i < fullText.length) { dailyTitle.textContent += fullText.charAt(i); i++; setTimeout(typeChar, speed); }
+    else { setTimeout(() => dailyTitle.classList.add('tw-done'), 1500); }
   }
-  const invertedQs = [1, 7];
-  let score = 0;
-  Object.entries(answers).forEach(([qi, v]) => {
-    score += invertedQs.includes(parseInt(qi)) ? (2 - v) : v;
-  });
-  const max = QUIZ.length * 2;
-  const pct = Math.round(score / max * 100);
-  let emoji, title, desc;
-  if (pct >= 75) {
-    emoji='🌟'; title=lang==='ar'?'ممتاز!':lang==='fr'?'Excellent !':'Excellent!';
-    desc=lang==='ar'?'فهمك للعلاقة بين الإسلام والعروبة ممتاز. واصل التعلم!':lang==='fr'?'Votre comprehension de la relation Islam-arabisme est excellente !':'Your understanding of the Islam-Arabism relationship is excellent!';
-  } else if (pct >= 50) {
-    emoji='🏛️'; title=lang==='ar'?'جيد':lang==='fr'?'Bien':'Good';
-    desc=lang==='ar'?'لديك فهم جيد لكن هناك مجال للتعمق أكثر.':lang==='fr'?'Vous avez une bonne comprehension mais il y a place pour approfondir.':'You have good understanding but there\'s room to go deeper.';
-  } else {
-    emoji='📚'; title=lang==='ar'?'تحتاج مراجعة':lang==='fr'?'A revoir':'Needs Review';
-    desc=lang==='ar'?'راجع البطاقات المعرفية وتعمق في الموضوع.':lang==='fr'?'Revoyez les cartes et approfondissez le sujet.':'Review the knowledge cards and study the topic more deeply.';
-  }
-  const result = document.getElementById('quizResult');
-  result.classList.remove('hidden');
-  result.innerHTML = `<div class="qr-emoji">${emoji}</div><div class="qr-score">${pct}%</div><div class="qr-title">${title}</div><div class="qr-desc">${desc}</div><button class="quiz-submit" onclick="renderQuiz()" style="margin-top:16px">${T[lang].quizAgain}</button>`;
-  result.scrollIntoView({ behavior: 'smooth' });
-  playSound('success');
+  setTimeout(typeChar, 500);
 }
 
-// ═══════════════ RENDER: ABOUT ═══════════════
-function renderAbout() {
-  const about = {
-    ar: {
-      disclaimerTitle:'⚠️ تنبيه مهم', disclaimer:'لست عالماً ولا مفتياً. هذا جهد متواضع من مسلم يحب كتب الشيخ الغزالي. المحتوى مستمد من الكتاب ومصادر إسلامية موثوقة. ليست فتوى.',
-      authorName:'الشيخ محمد الغزالي', authorDates:'١٩١٧ — ١٩٩٦',
-      authorBio:'عالم ومفكر إسلامي مصري، لُقب بـ"أديب الدعوة". ألّف أكثر من ٩٤ كتاباً. عُرف بدفاعه عن الإسلام ضد التيارات العلمانية والقومية المتطرفة.',
-      bookTitle:'عن الكتاب',
-      bookDesc:'"حقيقة القومية العربية وأسطورة البعث العربي" يكشف فيه الشيخ الغزالي زيف الادعاءات القومية التي حاولت فصل العروبة عن الإسلام. يوضح أن مجد العرب الحقيقي جاء من الإسلام، وأن القومية العلمانية أضرّت بالأمة أكثر مما نفعتها.',
-      sourcesTitle:'المصادر',
-      sources:['كتاب "حقيقة القومية العربية" — الشيخ محمد الغزالي','القرآن الكريم','صحيح البخاري ومسلم','مصادر تاريخية إسلامية'],
-      contact:'تواصل: abdelhak.bourdim@gmail.com'
-    },
-    en: {
-      disclaimerTitle:'⚠️ Important Notice', disclaimer:'I am not a scholar or mufti. This is a humble effort by a Muslim who loves Sheikh al-Ghazali\'s books. Content is derived from the book and trusted Islamic sources. This is not a fatwa.',
-      authorName:'Sheikh Mohammed al-Ghazali', authorDates:'1917 — 1996',
-      authorBio:'Egyptian Islamic scholar and thinker, nicknamed "The Literary Preacher." Author of 94+ books. Known for defending Islam against secular and extreme nationalist currents.',
-      bookTitle:'About the Book',
-      bookDesc:'"The Truth About Arab Nationalism and the Myth of Arab Ba\'athism" exposes the false claims of nationalism that tried to separate Arabism from Islam. It shows that Arab glory came from Islam, and that secular nationalism harmed the Ummah more than it helped.',
-      sourcesTitle:'Sources',
-      sources:['"The Truth About Arab Nationalism" — Sheikh Mohammed al-Ghazali','The Holy Quran','Sahih al-Bukhari and Muslim','Islamic historical sources'],
-      contact:'Contact: abdelhak.bourdim@gmail.com'
-    },
-    fr: {
-      disclaimerTitle:'⚠️ Avis Important', disclaimer:'Je ne suis ni savant ni mufti. C\'est un effort humble d\'un musulman qui aime les livres du Sheikh al-Ghazali. Le contenu est tire du livre et de sources islamiques fiables. Ce n\'est pas une fatwa.',
-      authorName:'Sheikh Mohammed al-Ghazali', authorDates:'1917 — 1996',
-      authorBio:'Savant et penseur islamique egyptien, surnomme "Le Litteraire de la Predication". Auteur de plus de 94 livres. Connu pour sa defense de l\'Islam contre les courants laiques et nationalistes extremes.',
-      bookTitle:'A Propos du Livre',
-      bookDesc:'"La Verite sur le Nationalisme Arabe et le Mythe du Baathisme" expose les fausses pretentions du nationalisme qui a tente de separer l\'arabisme de l\'Islam. Il montre que la gloire arabe vient de l\'Islam et que le nationalisme laique a nui a l\'Oumma plus qu\'il ne l\'a aidee.',
-      sourcesTitle:'Sources',
-      sources:['"La Verite sur le Nationalisme Arabe" — Sheikh Mohammed al-Ghazali','Le Saint Coran','Sahih al-Bukhari et Muslim','Sources historiques islamiques'],
-      contact:'Contact : abdelhak.bourdim@gmail.com'
-    }
-  };
-  const a = about[lang];
-  document.getElementById('aboutContainer').innerHTML = `
-    <div class="about-disclaimer"><div class="about-disclaimer-title">${a.disclaimerTitle}</div><p>${a.disclaimer}</p></div>
-    <div class="about-author"><span class="about-author-icon">📚</span><div class="about-author-info"><div class="about-author-name">${a.authorName}</div><div class="about-author-dates">${a.authorDates}</div><div class="about-author-bio">${a.authorBio}</div></div></div>
-    <div class="about-section"><div class="about-section-title">${a.bookTitle}</div><p class="about-text">${a.bookDesc}</p></div>
-    <div class="about-section"><div class="about-section-title">${a.sourcesTitle}</div>${a.sources.map(s => `<p class="about-text">&#8226; ${s}</p>`).join('')}</div>
-    <div class="about-section"><p class="about-text">${a.contact}</p></div>
-  `;
+// ═══════════════ SWIPE GESTURES ═══════════════
+function initSwipeGestures() {
+  let touchStartX = 0, touchStartY = 0;
+  const tabOrder = ['home','traits','quiz','progress','about'];
+  document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; touchStartY = e.changedTouches[0].screenY; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) < 80 || Math.abs(dy) > Math.abs(dx) * 0.5) return;
+    const current = tabOrder.findIndex(t => { const p = document.getElementById('panel-'+t); return p && p.classList.contains('active'); });
+    if (current < 0) return;
+    const isRTL = document.documentElement.dir === 'rtl';
+    let next;
+    if ((dx > 0 && !isRTL) || (dx < 0 && isRTL)) next = current - 1; else next = current + 1;
+    if (next >= 0 && next < tabOrder.length) switchTab(tabOrder[next]);
+  }, { passive: true });
 }
 
-// ═══════════════ RENDER: HELP ═══════════════
-function renderHelp() {
-  const help = {
-    ar: [
-      {title:'⚠️ تنبيه',body:'لست عالماً. هذا جهد متواضع لنشر حكمة الشيخ الغزالي بطريقة تفاعلية.'},
-      {title:'📚 المصادر',body:'كتاب "حقيقة القومية العربية" للشيخ محمد الغزالي، القرآن الكريم، السنة النبوية.'},
-      {title:'✨ المميزات',body:'ثلاث لغات، ٣ أنماط، ٢٠ بطاقة معرفية، ٦ نقاط نقدية، تتبع العادات، اختبار ذاتي.'},
-      {title:'⌨️ اختصارات',body:'استخدم الأسهم للتنقل. Escape لإغلاق اللوحات.'},
-    ],
-    en: [
-      {title:'⚠️ Disclaimer',body:'I am not a scholar. This is a humble effort to share Sheikh al-Ghazali\'s wisdom interactively.'},
-      {title:'📚 Sources',body:'"The Truth About Arab Nationalism" by Sheikh al-Ghazali, the Holy Quran, Prophetic Sunnah.'},
-      {title:'✨ Features',body:'Three languages, 3 themes, 20 knowledge cards, 6 critique points, habit tracker, quiz.'},
-      {title:'⌨️ Shortcuts',body:'Use arrow keys to navigate. Escape to close panels.'},
-    ],
-    fr: [
-      {title:'⚠️ Avertissement',body:'Je ne suis pas un savant. C\'est un effort humble pour partager la sagesse du Sheikh al-Ghazali.'},
-      {title:'📚 Sources',body:'"La Verite sur le Nationalisme Arabe" par Sheikh al-Ghazali, le Saint Coran, la Sunnah.'},
-      {title:'✨ Fonctionnalites',body:'Trois langues, 3 themes, 20 cartes, 6 points critiques, suivi habitudes, quiz.'},
-      {title:'⌨️ Raccourcis',body:'Fleches pour naviguer. Echap pour fermer les panneaux.'},
-    ]
-  };
-  document.getElementById('helpBody').innerHTML = help[lang].map(h => `<div class="help-item"><div class="help-item-title">${h.title}</div><div>${h.body}</div></div>`).join('');
-}
-
-// ═══════════════ RENDER: DUAS ═══════════════
-function renderDuas() {
-  document.getElementById('duaPanelContent').innerHTML = DUAS.map(d => {
-    const dd = d[lang];
-    return `<div class="dua-item"><div class="dua-item-label">${dd.label}</div><div class="dua-item-ar">${dd.text}</div><div class="dua-item-tr">${dd.tr}</div></div>`;
-  }).join('');
-}
-
-// ═══════════════ SCROLL REVEAL ═══════════════
-function initScrollReveal() {
-  if (!('IntersectionObserver' in window)) return;
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); } });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  function observeAll() { document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => observer.observe(el)); }
-  observeAll();
-  document.querySelectorAll('.tab').forEach(tab => { tab.addEventListener('click', () => setTimeout(observeAll, 100)); });
-}
-
-// ═══════════════ KEYBOARD NAV ═══════════════
-function initKeyboardNav() {
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      const hp = document.getElementById('helpPanel'); if (!hp.classList.contains('hidden')) { toggleHelp(); return; }
-      const dp = document.getElementById('duaPanel'); if (!dp.classList.contains('hidden')) { toggleDuaPanel(); return; }
-      document.querySelectorAll('.principle-card.open').forEach(c => c.classList.remove('open'));
-    }
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-      const panel = document.getElementById('panel-cards');
-      if (!panel || !panel.classList.contains('active')) return;
-      if (document.activeElement && document.activeElement.id === 'cardsSearch') return;
-      e.preventDefault();
-      const cards = Array.from(document.querySelectorAll('.principle-card')).filter(c => c.style.display !== 'none');
-      if (!cards.length) return;
-      if (currentCardIdx >= 0 && currentCardIdx < cards.length) cards[currentCardIdx].classList.remove('open');
-      const dir = (document.documentElement.dir === 'rtl') ? (e.key === 'ArrowRight' ? -1 : 1) : (e.key === 'ArrowRight' ? 1 : -1);
-      currentCardIdx = Math.max(0, Math.min(cards.length - 1, currentCardIdx + dir));
-      cards[currentCardIdx].classList.add('open');
-      cards[currentCardIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
-      playSound('click');
-    }
-  });
-}
-
-// ═══════════════ UTILITIES ═══════════════
-function toggleCard(id) { const card = document.getElementById(id); if (card) { card.classList.toggle('open'); playSound('click'); } }
-function toggleHelp() { document.getElementById('helpPanel').classList.toggle('hidden'); playSound('click'); }
-function toggleDuaPanel() { document.getElementById('duaPanel').classList.toggle('hidden'); playSound('click'); }
-function showToast(msg) { const t = document.getElementById('toast'); const m = document.getElementById('toastMsg'); if (t && m) { m.textContent = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2500); } }
-function initScrollTop() { const btn = document.getElementById('scrollTop'); window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 300); }); }
-
-// ═══════════════ SOUND EFFECTS ═══════════════
-const AudioCtx = window.AudioContext || window.webkitAudioContext;
-let audioCtx;
-function playSound(type) {
-  try {
-    if (!audioCtx) audioCtx = new AudioCtx();
-    const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
-    osc.connect(gain); gain.connect(audioCtx.destination); gain.gain.value = 0.06;
-    if (type === 'click') { osc.frequency.value = 800; osc.type = 'sine'; gain.gain.value = 0.04; }
-    else if (type === 'success') { osc.frequency.value = 523; osc.type = 'sine'; gain.gain.value = 0.06; }
-    else if (type === 'theme') { osc.frequency.value = 440; osc.type = 'triangle'; gain.gain.value = 0.05; }
-    osc.start(); osc.stop(audioCtx.currentTime + 0.1);
-  } catch(e) {}
-}
+// ═══════════════ INIT ═══════════════
+document.addEventListener('DOMContentLoaded', () => {
+  // Set age mode class
+  document.body.classList.toggle('young-mode', ageMode === 'young');
+  // Update streak
+  updateStreak();
+  // Init
+  initSplash();
+  renderAll();
+  initTabs();
+  initScrollReveal();
+  initScrollTop();
+  initKeyboardNav();
+  initSwipeGestures();
+  initTypewriter();
+});
