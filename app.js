@@ -222,7 +222,31 @@ const CRITIQUE_DATA = [
   {emoji:'🔒',
     ar:{title:'قمع المعارضة',problem:'الأنظمة القومية قمعت كل صوت معارض باسم الوحدة الوطنية',solution:'الإسلام يكفل الشورى وحرية النصيحة والأمر بالمعروف',verse:'وَأَمْرُهُمْ شُورَىٰ بَيْنَهُمْ',verseRef:'الشورى ٤٢: ٣٨'},
     en:{title:'Suppression of Dissent',problem:'Nationalist regimes suppressed all opposition in the name of national unity',solution:'Islam guarantees consultation, freedom of advice, and commanding good',verse:'And their affairs are conducted through consultation among themselves',verseRef:'Ash-Shura 42:38'},
-    fr:{title:'Repression de la Dissidence',problem:'Les regimes nationalistes ont reprime toute opposition au nom de l\'unite nationale',solution:'L\'Islam garantit la consultation, la liberte de conseil et l\'ordre du bien',verse:'Et leurs affaires se traitent par consultation entre eux',verseRef:'Ash-Shura 42:38'}}
+    fr:{title:'Repression de la Dissidence',problem:'Les regimes nationalistes ont reprime toute opposition au nom de l\'unite nationale',solution:'L\'Islam garantit la consultation, la liberte de conseil et l\'ordre du bien',verse:'Et leurs affaires se traitent par consultation entre eux',verseRef:'Ash-Shura 42:38'}},
+  {emoji:'🏳️',
+    ar:{title:'تمزيق الأمة',problem:'القومية قسّمت الأمة الواحدة إلى دويلات متناحرة',solution:'الإسلام يدعو للوحدة: أمة واحدة من دون الناس',verse:'إِنَّ هَٰذِهِ أُمَّتُكُمْ أُمَّةً وَاحِدَةً وَأَنَا رَبُّكُمْ فَاعْبُدُونِ',verseRef:'الأنبياء ٢١: ٩٢'},
+    en:{title:'Tearing the Ummah Apart',problem:'Nationalism divided the one Ummah into rival mini-states',solution:'Islam calls for unity: one nation under God',verse:'Indeed this, your religion, is one religion, and I am your Lord, so worship Me',verseRef:'Al-Anbiya 21:92'},
+    fr:{title:'Dechirement de l\'Oumma',problem:'Le nationalisme a divise l\'Oumma unique en mini-etats rivaux',solution:'L\'Islam appelle a l\'unite: une nation sous Dieu',verse:'Certes, votre religion est une religion unique et Je suis votre Seigneur, adorez-Moi',verseRef:'Al-Anbiya 21:92'}},
+  {emoji:'🎓',
+    ar:{title:'تغريب التعليم',problem:'الأنظمة القومية فرضت مناهج تعليمية غربية تُبعد الشباب عن هويتهم',solution:'التعليم الإسلامي يجمع بين العلم الدنيوي والقيم الإيمانية',verse:'اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ',verseRef:'العلق ٩٦: ١'},
+    en:{title:'Westernizing Education',problem:'Nationalist regimes imposed Western curricula that alienated youth from their identity',solution:'Islamic education combines worldly knowledge with faith-based values',verse:'Read in the name of your Lord who created',verseRef:'Al-Alaq 96:1'},
+    fr:{title:'Occidentalisation de l\'Education',problem:'Les regimes nationalistes ont impose des programmes occidentaux eloignant les jeunes de leur identite',solution:'L\'education islamique combine savoir mondain et valeurs de foi',verse:'Lis au nom de ton Seigneur qui a cree',verseRef:'Al-Alaq 96:1'}},
+  {emoji:'📺',
+    ar:{title:'احتكار الإعلام',problem:'القومية احتكرت الإعلام لنشر دعاية الحزب الواحد',solution:'الإسلام يؤمن بحرية القول والأمر بالمعروف والنهي عن المنكر',verse:'كُنتُمْ خَيْرَ أُمَّةٍ أُخْرِجَتْ لِلنَّاسِ تَأْمُرُونَ بِالْمَعْرُوفِ',verseRef:'آل عمران ٣: ١١٠'},
+    en:{title:'Media Monopoly',problem:'Nationalism monopolized media to spread single-party propaganda',solution:'Islam believes in freedom of speech and commanding good',verse:'You are the best nation produced for mankind, commanding what is right',verseRef:'Aal Imran 3:110'},
+    fr:{title:'Monopole des Medias',problem:'Le nationalisme a monopolise les medias pour diffuser la propagande du parti unique',solution:'L\'Islam croit en la liberte d\'expression et l\'injonction du bien',verse:'Vous etes la meilleure communaute suscitee pour les gens, ordonnant le bien',verseRef:'Aal Imran 3:110'}},
+  {emoji:'🌍',
+    ar:{title:'العزلة عن العالم الإسلامي',problem:'القومية عزلت العرب عن إخوانهم في تركيا وإيران وأفريقيا وآسيا',solution:'الأمة الإسلامية واحدة بغض النظر عن الأعراق والجغرافيا',verse:'وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا',verseRef:'آل عمران ٣: ١٠٣'},
+    en:{title:'Isolation from the Muslim World',problem:'Nationalism isolated Arabs from their brothers in Turkey, Iran, Africa and Asia',solution:'The Muslim Ummah is one regardless of ethnicity and geography',verse:'And hold firmly to the rope of Allah all together and do not become divided',verseRef:'Aal Imran 3:103'},
+    fr:{title:'Isolement du Monde Musulman',problem:'Le nationalisme a isole les Arabes de leurs freres en Turquie, Iran, Afrique et Asie',solution:'La Oumma est une quelle que soit l\'ethnie et la geographie',verse:'Et cramponnez-vous ensemble au cable d\'Allah et ne soyez pas divises',verseRef:'Aal Imran 3:103'}},
+  {emoji:'⚖️',
+    ar:{title:'غياب العدالة الاجتماعية',problem:'الأنظمة القومية أنشأت طبقية جديدة: حزبيون ومهمّشون',solution:'الإسلام يساوي بين الناس: لا فضل لعربي على أعجمي إلا بالتقوى',verse:'إِنَّ أَكْرَمَكُمْ عِندَ اللَّهِ أَتْقَاكُمْ',verseRef:'الحجرات ٤٩: ١٣'},
+    en:{title:'Absence of Social Justice',problem:'Nationalist regimes created new class divisions: party members vs marginalized',solution:'Islam equalizes people: no superiority except through piety',verse:'Indeed, the most noble of you in the sight of Allah is the most righteous',verseRef:'Al-Hujurat 49:13'},
+    fr:{title:'Absence de Justice Sociale',problem:'Les regimes nationalistes ont cree de nouvelles divisions de classe',solution:'L\'Islam egalise les gens: pas de superiorite sauf par la piete',verse:'Le plus noble d\'entre vous aupres d\'Allah est le plus pieux',verseRef:'Al-Hujurat 49:13'}},
+  {emoji:'🔮',
+    ar:{title:'رؤية المستقبل',problem:'القومية لم تقدم رؤية مستقبلية واضحة سوى شعارات جوفاء',solution:'الإسلام يقدم مشروعاً حضارياً شاملاً للدنيا والآخرة',verse:'وَابْتَغِ فِيمَا آتَاكَ اللَّهُ الدَّارَ الْآخِرَةَ وَلَا تَنسَ نَصِيبَكَ مِنَ الدُّنْيَا',verseRef:'القصص ٢٨: ٧٧'},
+    en:{title:'Vision for the Future',problem:'Nationalism offered no clear future vision beyond hollow slogans',solution:'Islam presents a comprehensive civilizational project for this life and the next',verse:'Seek the home of the Hereafter with what Allah has given you, but do not forget your share of this world',verseRef:'Al-Qasas 28:77'},
+    fr:{title:'Vision pour l\'Avenir',problem:'Le nationalisme n\'a offert aucune vision claire au-dela de slogans creux',solution:'L\'Islam presente un projet civilisationnel complet pour cette vie et l\'au-dela',verse:'Recherche la demeure de l\'Au-dela avec ce qu\'Allah t\'a donne, mais n\'oublie pas ta part de ce monde',verseRef:'Al-Qasas 28:77'}}
 ];
 
 // ═══════════════ HABITS DATA ═══════════════
@@ -246,7 +270,14 @@ const QUIZ = [
   {ar:'هل تقرأ عن تاريخ الإسلام وإنجازاته؟',en:'Do you read about Islamic history and achievements?',fr:'Lisez-vous sur l\'histoire de l\'Islam et ses realisations ?'},
   {ar:'هل تؤمن بأن التنوع العرقي نعمة من الله؟',en:'Do you believe ethnic diversity is a blessing from Allah?',fr:'Croyez-vous que la diversite ethnique est une benediction d\'Allah ?'},
   {ar:'هل تدعو إلى الحوار والسلام بين المسلمين؟',en:'Do you advocate for dialogue and peace among Muslims?',fr:'Plaidez-vous pour le dialogue et la paix entre musulmans ?'},
-  {ar:'هل تفرّق في معاملتك بين المسلمين بسبب جنسياتهم؟',en:'Do you treat Muslims differently based on their nationality?',fr:'Traitez-vous les musulmans differemment selon leur nationalite ?'}
+  {ar:'هل تفرّق في معاملتك بين المسلمين بسبب جنسياتهم؟',en:'Do you treat Muslims differently based on their nationality?',fr:'Traitez-vous les musulmans differemment selon leur nationalite ?'},
+  {ar:'هل تعرف الفرق بين الانتماء الثقافي والتعصب القومي؟',en:'Do you know the difference between cultural belonging and ethnic fanaticism?',fr:'Connaissez-vous la difference entre appartenance culturelle et fanatisme ethnique ?'},
+  {ar:'هل تؤمن بأن اللغة العربية رابط ثقافي لا عرقي؟',en:'Do you believe Arabic is a cultural bond, not an ethnic one?',fr:'Croyez-vous que l\'arabe est un lien culturel, pas ethnique ?'},
+  {ar:'هل تعلم أن الصحابة كانوا من أعراق مختلفة؟',en:'Do you know the Companions came from diverse ethnicities?',fr:'Savez-vous que les Compagnons venaient de differentes ethnies ?'},
+  {ar:'هل تسعى لبناء جسور مع المسلمين من ثقافات أخرى؟',en:'Do you seek to build bridges with Muslims from other cultures?',fr:'Cherchez-vous a construire des ponts avec les musulmans d\'autres cultures ?'},
+  {ar:'هل تفهم لماذا رفض الإسلام العصبية القبلية؟',en:'Do you understand why Islam rejected tribal fanaticism?',fr:'Comprenez-vous pourquoi l\'Islam a rejete le fanatisme tribal ?'},
+  {ar:'هل تعتقد أن الأمة الإسلامية تحتاج وحدة سياسية أم ثقافية أولاً؟',en:'Do you think the Muslim Ummah needs political or cultural unity first?',fr:'Pensez-vous que la Oumma a besoin d\'unite politique ou culturelle d\'abord ?'},
+  {ar:'هل تستطيع التمييز بين حب الوطن والتعصب الأعمى؟',en:'Can you distinguish between patriotism and blind nationalism?',fr:'Pouvez-vous distinguer entre patriotisme et nationalisme aveugle ?'}
 ];
 
 // ═══════════════ DUAS DATA ═══════════════
